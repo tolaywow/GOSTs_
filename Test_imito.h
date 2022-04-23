@@ -10,10 +10,11 @@ protected:
   virtual bool test_R();
   virtual bool test_MSBR();
   virtual bool test_K1();
-  virtual bool test_MSBK1();/*
-  virtual bool test_K2();*/
+  virtual bool test_MSBK1();
+  virtual bool test_K2();
+  virtual bool test_P();
+  virtual bool test_P_not_full();
   /*
-
   virtual bool test_();
   virtual bool test_();
   virtual bool test_();

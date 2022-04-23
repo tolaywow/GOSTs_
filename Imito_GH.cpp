@@ -6,22 +6,20 @@ Imito_GH::Imito_GH()
     block_to_xor[k] = 0;
 }
 
-void Imito_GH::Imito_step(unsigned char* block)
+void Imito_GH::imito_step(unsigned char* block)
 {
   xors(block, block_to_xor);
 
   Give_ST(block_to_xor);
 }
 
-void Imito_GH::Imito_final(unsigned char* block, unsigned char length_of_block_in_byte)
+void Imito_GH::imito_final(unsigned char* block, unsigned char length_of_block_in_byte)
 {
   if (length_of_block_in_byte != 0x10)
   {
     xors(key_imito + 0x10, block_to_xor);
 
     unsigned char z[0x10] = {0};
-
-
 
     for (unsigned char k = 0; k <length_of_block_in_byte; ++k)     
         z[0x10 - length_of_block_in_byte+k] = block[k];  
@@ -36,10 +34,10 @@ void Imito_GH::Imito_final(unsigned char* block, unsigned char length_of_block_i
       block[k] = block_to_xor[k];
   }
   else
-    Imito_final(block);
+    imito_final(block);
 }
 
-void Imito_GH::Imito_final(unsigned char* block)
+void Imito_GH::imito_final(unsigned char* block)
 {
   xors(key_imito, block_to_xor);
 

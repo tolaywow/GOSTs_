@@ -7,9 +7,9 @@ public:
 
   Imito_GH();
 
-  virtual void Imito_step(unsigned char* block);
-  virtual void Imito_final(unsigned char* block, unsigned char length_of_block_in_byte);
-  virtual void Imito_final(unsigned char* block);
+  virtual void imito_step(unsigned char* block);
+  virtual void imito_final(unsigned char* block, unsigned char length_of_block_in_byte);
+  virtual void imito_final(unsigned char* block);
   virtual void push_key(unsigned char* key_new);
 
 protected:
