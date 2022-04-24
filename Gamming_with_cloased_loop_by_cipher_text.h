@@ -9,7 +9,7 @@ class GwCLbCt :
 {
 public:
  //GwCLbCt();
-  GwCLbCt(unsigned short length_of_IV=0x40);
+  GwCLbCt(unsigned short length_of_IV=0x20);
   ~GwCLbCt();
 
   
@@ -19,7 +19,7 @@ public:
   virtual void Give_OT(unsigned char* block);
   virtual void Give_ST(unsigned char* block, unsigned char length_last_not_full_block);
   virtual void Give_OT(unsigned char* block, unsigned char length_last_not_full_block);
-  virtual void push_s(unsigned short s_in = 0x100);
+  virtual void push_s(unsigned short s_in = 0x80);
 
 protected:
 

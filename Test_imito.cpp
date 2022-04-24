@@ -2,6 +2,30 @@
 
 #define UC unsigned char
 
+Test_imito::Test_imito()
+{
+  UC key[0x20];
+
+  {
+    UC key_r[] =
+    {
+      0x88, 0x99, 0xaa, 0xbb,
+      0xcc, 0xdd, 0xee, 0xff,
+      0x00, 0x11, 0x22, 0x33,
+      0x44, 0x55, 0x66, 0x77,
+      0xfe, 0xdc, 0xba, 0x98,
+      0x76, 0x54, 0x32, 0x10,
+      0x01, 0x23, 0x45, 0x67,
+      0x89, 0xab, 0xcd, 0xef
+    };
+
+    for (UC k = 0; k < 0x20; ++k)
+      key[k] = key_r[0x1f - k];
+  }
+
+  push_key(key);
+}
+
 bool Test_imito::result_of_testing(bool* mass)
 {
   bool result = true;
@@ -33,27 +57,6 @@ bool Test_imito::result_of_testing()
 
 bool Test_imito::test_R()
 {
-  UC key[0x20];
-
-  {
-    UC key_r[] =
-    {
-      0x88, 0x99, 0xaa, 0xbb,
-      0xcc, 0xdd, 0xee, 0xff,
-      0x00, 0x11, 0x22, 0x33,
-      0x44, 0x55, 0x66, 0x77,
-      0xfe, 0xdc, 0xba, 0x98,
-      0x76, 0x54, 0x32, 0x10,
-      0x01, 0x23, 0x45, 0x67,
-      0x89, 0xab, 0xcd, 0xef
-    };
-
-    for (UC k = 0; k < 0x20; ++k)
-      key[k] = key_r[0x1f - k];
-  }
-
-  push_key(key);
-
   UC R[0x10] = { 0 };
 
   Give_ST(R);
@@ -210,10 +213,7 @@ bool Test_imito::test_P()
       };
 
       for (UC k = 0; k < 0x10; ++k)
-      {
         P1[k] = P1_r[0xf - k];
-
-      }
     }
 
     imito_step(P1);
@@ -245,10 +245,7 @@ bool Test_imito::test_P()
       };
 
       for (UC k = 0; k < 0x10; ++k)
-      {
         P2[k] = P2_r[0xf - k];
-
-      }
     }
 
     imito_step(P2);
@@ -280,10 +277,7 @@ bool Test_imito::test_P()
       };
 
       for (UC k = 0; k < 0x10; ++k)
-      {
         P3[k] = P3_r[0xf - k];
-
-      }
     }
 
     imito_step(P3);
@@ -315,10 +309,7 @@ bool Test_imito::test_P()
       };
 
       for (UC k = 0; k < 0x10; ++k)
-      {
         P4[k] = P4_r[0xf - k];
-
-      }
     }
 
     imito_final(P4);

@@ -3,6 +3,7 @@
 #include "Test_imito.h"
 #include "Imito_GH.h"
 #include "Gamming_with_cloased_loop_by_cipher_text.h"
+#include "Test_GwCLbCt.h"
 
 #include <iostream>
 
@@ -19,6 +20,12 @@ int main()
 
   {
     Test_imito x;
+
+    std::cout << x.result_of_testing() << std::endl;
+  }
+
+  {
+    Test_GwCLbCt x;
 
     std::cout << x.result_of_testing() << std::endl;
   }
@@ -42,6 +49,8 @@ int main()
 
     x.Give_OT(block);
   }
+
+
 
   return 0;
 }

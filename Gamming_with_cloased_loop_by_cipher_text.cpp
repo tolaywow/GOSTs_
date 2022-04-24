@@ -37,14 +37,14 @@ void GwCLbCt::Give_ST(unsigned char* block)
 
   Grass_hopper::Give_ST(blockSR);
 
-  for (UC k = 0; k < 0x10&&k<s/0x10; ++k)
+  for (UC k = 0; k < 0x10&&k<s/0x8; ++k)
     block[k] ^= blockSR[k];
 
-  for (UC k = 0; k < l_o_IV-s/0x10; ++k)
-    block_R[l_o_IV - 0x1 - k] = block_R[l_o_IV - k - 0x1-s/0x10];
+  for (UC k = 0; k < l_o_IV-s/0x8; ++k)
+    block_R[l_o_IV - 0x1 - k] = block_R[l_o_IV - k - 0x1-s/0x8];
 
-  for (UC k = 0; k < s/0x10; ++k)
-    block_R[k] = blockSR[k];
+  for (UC k = 0; k < s/0x8; ++k)
+    block_R[k] = block[k];
 
 }
 
@@ -57,16 +57,16 @@ void GwCLbCt::Give_OT(unsigned char* block)
 
   Grass_hopper::Give_ST(blockSR);
 
-  for (UC k = 0; k < 0x10 && k < s / 0x10; ++k)
-    block[k] ^= blockSR[k];
+  /*for (UC k = 0; k < 0x10 && k < s / 0x10; ++k)
+    block[k] ^= blockSR[k];*/
 
-  for (UC k = 0; k < l_o_IV - s / 0x10; ++k)
-    block_R[l_o_IV - 0x1 - k] = block_R[l_o_IV - k - 0x1 - s / 0x10];
+  for (UC k = 0; k < l_o_IV - s / 0x8; ++k)
+    block_R[l_o_IV - 0x1 - k] = block_R[l_o_IV - k - 0x1 - s / 0x8];
 
-  for (UC k = 0; k < s / 0x10; ++k)
+  for (UC k = 0; k < s / 0x8; ++k)
     block_R[k] = block[k];
 
-  for (UC k = 0; k < 0x10 && k < s / 0x10; ++k)
+  for (UC k = 0; k < 0x10 && k < s / 0x8; ++k)
     block[k] ^= blockSR[k];
 }
 
