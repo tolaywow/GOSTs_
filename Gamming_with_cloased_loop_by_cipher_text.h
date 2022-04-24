@@ -9,15 +9,22 @@ class GwCLbCt :
 {
 public:
  //GwCLbCt();
-  GwCLbCt(unsigned int length_of_IV);
+  GwCLbCt(unsigned short length_of_IV=0x40);
+  ~GwCLbCt();
 
-  void push_key(unsigned char* key_new);
-  void push_IV(unsigned char* IV);
-  void Give_ST(unsigned char* block);
+  
+  virtual void push_IV(unsigned char* IV);
+  virtual void push_IV_and_key(unsigned char* IV, unsigned char* key_new);
+  virtual void Give_ST(unsigned char* block);
+  virtual void Give_OT(unsigned char* block);
+  virtual void Give_ST(unsigned char* block, unsigned char length_last_not_full_block);
+  virtual void Give_OT(unsigned char* block, unsigned char length_last_not_full_block);
+  virtual void push_s(unsigned short s_in = 0x100);
+
 protected:
 
-
-
   unsigned char* block_R;
+  unsigned short s, l_o_IV;
+
 };
 
