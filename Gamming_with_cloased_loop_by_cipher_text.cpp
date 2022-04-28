@@ -82,7 +82,7 @@ void GwCLbCt::Give_ST(unsigned char* block, unsigned char length_last_not_full_b
   Give_ST(block_var);
 
   for (UC k = 0; k < length_last_not_full_block; ++k)
-    block[k] ^= block_var[k];  
+    block[k] ^= block_var[k + 0x10 - length_last_not_full_block];
 }
 
 void GwCLbCt::Give_OT(unsigned char* block, unsigned char length_last_not_full_block)
@@ -96,7 +96,7 @@ void GwCLbCt::Give_OT(unsigned char* block, unsigned char length_last_not_full_b
   Give_OT(block_var);
 
   for (UC k = 0; k < length_last_not_full_block; ++k)
-    block[k] ^= block_var[k];
+    block[k] ^= block_var[k + 0x10 - length_last_not_full_block];
 
 }
 
