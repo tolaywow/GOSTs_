@@ -26,5 +26,8 @@ protected:
   unsigned char* block_R;
   unsigned short s, l_o_IV;
 
+  GwCLbCt(const GwCLbCt&);
+  virtual GwCLbCt& operator=(const GwCLbCt&);
+
 };
 

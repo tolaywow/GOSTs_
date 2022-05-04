@@ -20,5 +20,8 @@ protected:
 
   unsigned char key[0x20], keys[0xa][0x10];
 
+
+  Grass_hopper(const Grass_hopper&);
+  virtual Grass_hopper& operator=(const Grass_hopper&);
 };
 
