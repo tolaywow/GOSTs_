@@ -3,7 +3,12 @@
 Imito_GH::Imito_GH()
 {
   for (unsigned char k = 0; k < 0x10; ++k)
+  {
     block_to_xor[k] = 0;
+    key_imito[0x2 * k] = 0;
+    key_imito[0x2 * k + 0x1] = 0;
+  }
+  Form_Key();
 }
 
 void Imito_GH::imito_step(const unsigned char* block)

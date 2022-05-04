@@ -2,11 +2,10 @@
 
 #define UC unsigned char
 
-GwCLbCt::GwCLbCt(const unsigned short length_of_IV)
+GwCLbCt::GwCLbCt(const unsigned short length_of_IV):l_o_IV(length_of_IV),
+  s(0x80)
 {
   block_R = new UC[length_of_IV];
-  l_o_IV = length_of_IV;
-  push_s();
 }
 
 GwCLbCt::~GwCLbCt()
