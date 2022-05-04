@@ -18,7 +18,7 @@ protected:
   unsigned char key_imito[0x20];
   virtual bool MSB(const unsigned char* block);
 
-   Imito_GH(const Imito_GH&);
-   virtual Imito_GH& operator=(const Imito_GH&);
+  Imito_GH(const Imito_GH&);
+  virtual Imito_GH& operator=(const Imito_GH&) {};
 };
 

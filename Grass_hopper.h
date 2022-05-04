@@ -22,6 +22,6 @@ protected:
 
 
   Grass_hopper(const Grass_hopper&);
-  virtual Grass_hopper& operator=(const Grass_hopper&);
+  virtual Grass_hopper& operator=(const Grass_hopper&) {};
 };
 

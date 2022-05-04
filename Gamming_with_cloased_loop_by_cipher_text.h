@@ -10,7 +10,7 @@ class GwCLbCt :
 public:
  //GwCLbCt();
   GwCLbCt(const unsigned short length_of_IV=0x20);
-  ~GwCLbCt();
+  virtual ~GwCLbCt();
 
   
   virtual void push_IV(const unsigned char* IV);
@@ -27,7 +27,7 @@ protected:
   unsigned short s, l_o_IV;
 
   GwCLbCt(const GwCLbCt&);
-  virtual GwCLbCt& operator=(const GwCLbCt&);
+  virtual GwCLbCt& operator=(const GwCLbCt&) {};
 
 };
 
