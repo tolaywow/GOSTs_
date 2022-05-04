@@ -2,7 +2,7 @@
 
 #define UC unsigned char
 
-GwCLbCt::GwCLbCt(unsigned short length_of_IV)
+GwCLbCt::GwCLbCt(const unsigned short length_of_IV)
 {
   block_R = new UC[length_of_IV];
   l_o_IV = length_of_IV;
@@ -14,7 +14,7 @@ GwCLbCt::~GwCLbCt()
   delete[] block_R;
 }
 
-void GwCLbCt::push_IV(unsigned char* IV)
+void GwCLbCt::push_IV(const unsigned char* IV)
 {
   for (UC k = 0; k < l_o_IV; ++k)
   {
@@ -22,7 +22,7 @@ void GwCLbCt::push_IV(unsigned char* IV)
   }
 }
 
-void GwCLbCt::push_IV_and_key(unsigned char* IV, unsigned char* key_new)
+void GwCLbCt::push_IV_and_key(const unsigned char* IV, const unsigned char* key_new)
 {
   push_IV(IV);
   push_key(key_new);
@@ -70,7 +70,7 @@ void GwCLbCt::Give_OT(unsigned char* block)
     block[k] ^= blockSR[k];
 }
 
-void GwCLbCt::Give_ST(unsigned char* block, unsigned char length_last_not_full_block)
+void GwCLbCt::Give_ST(unsigned char* block,const unsigned char length_last_not_full_block)
 {
   UC block_var[0x10] = { 0 };
 
@@ -85,7 +85,7 @@ void GwCLbCt::Give_ST(unsigned char* block, unsigned char length_last_not_full_b
     block[k] ^= block_var[k + 0x10 - length_last_not_full_block];
 }
 
-void GwCLbCt::Give_OT(unsigned char* block, unsigned char length_last_not_full_block)
+void GwCLbCt::Give_OT(unsigned char* block, const unsigned char length_last_not_full_block)
 {
   UC block_var[0x10] = { 0 };
 
@@ -100,7 +100,7 @@ void GwCLbCt::Give_OT(unsigned char* block, unsigned char length_last_not_full_b
 
 }
 
-void GwCLbCt::push_s(unsigned short s_in)
+void GwCLbCt::push_s(const unsigned short s_in)
 {
   s = s_in;
 }

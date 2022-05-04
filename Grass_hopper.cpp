@@ -91,7 +91,7 @@ Grass_hopper::~Grass_hopper()
 
 }
 
-void Grass_hopper::push_key(unsigned char* key_new)
+void Grass_hopper::push_key(const unsigned char* key_new)
 {
 
   for (unsigned char k = 0; k < 0x20; ++k)
@@ -127,7 +127,7 @@ void Grass_hopper::Give_OT(unsigned char* block)
   xors(keys[0], block);
 }
 
-void Grass_hopper::xors(unsigned __int8* Key, unsigned __int8* block)
+void Grass_hopper::xors(const unsigned __int8* Key, unsigned __int8* block)
 {
   for (unsigned char k = 0; k < 0x10; ++k)
   {
@@ -151,7 +151,7 @@ void Grass_hopper::S_l(unsigned char* block)
   }
 }
 
-unsigned char Grass_hopper::l(unsigned char* block)
+unsigned char Grass_hopper::l(const unsigned char* block)
 {
   unsigned int l_mass[] = {
     0x01, 0x94, 0x20, 0x85,
@@ -160,7 +160,7 @@ unsigned char Grass_hopper::l(unsigned char* block)
     0x10, 0x85, 0x20, 0x94 };
 
   int a0 = 0;
-  const int px = 0x1c3;
+  static const int px = 0x1c3;
   for (char i = 0; i < 0x10; ++i)
   {
     if (block[i] != 0)

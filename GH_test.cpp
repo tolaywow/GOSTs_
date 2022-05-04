@@ -54,27 +54,6 @@ bool GH_test::result_of_testing(bool* mass)
     result = false;
     mass[0x8] = result;
   }
-  /*
-  if (!)
-  {
-    result = false;
-    mass[0x9] = result;
-  }
-  if (!)
-  {
-    result = false;
-    mass[0xa] = result;
-  }
-  if (!)
-  {
-    result = false;
-    mass[0xb] = result;
-  }
-  if (!)
-  {
-    result = false;
-    mass[0xc] = result;
-  }*/
   
   return result;
 }

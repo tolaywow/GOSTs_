@@ -6,14 +6,14 @@ Imito_GH::Imito_GH()
     block_to_xor[k] = 0;
 }
 
-void Imito_GH::imito_step(unsigned char* block)
+void Imito_GH::imito_step(const unsigned char* block)
 {
   xors(block, block_to_xor);
 
   Give_ST(block_to_xor);
 }
 
-void Imito_GH::imito_final(unsigned char* block, unsigned char length_of_block_in_byte)
+void Imito_GH::imito_final(unsigned char* block,const unsigned char length_of_block_in_byte)
 {
   if (length_of_block_in_byte != 0x10)
   {
@@ -49,7 +49,7 @@ void Imito_GH::imito_final(unsigned char* block)
     block[k] = block_to_xor[k];
 }
 
-void Imito_GH::push_key(unsigned char* key_new)
+void Imito_GH::push_key(const unsigned char* key_new)
 {
   Grass_hopper::push_key(key_new);
 
@@ -118,7 +118,7 @@ void Imito_GH::push_key(unsigned char* key_new)
   }
 }
 
-bool Imito_GH::MSB(unsigned char* block)
+bool Imito_GH::MSB(const unsigned char* block)
 {
   return block[0xf]&0x80;
 }
