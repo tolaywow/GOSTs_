@@ -29,7 +29,7 @@ void GwCLbCt::push_IV_and_key(const unsigned char* IV, const unsigned char* key_
 
 void GwCLbCt::Give_ST(unsigned char* block)
 {
-  UC blockSR[0x10];
+  UC blockSR[0x10] = {0};
 
   for (UC k = 0; k < 0x10; ++k)
     blockSR[k] = block_R[l_o_IV - 0x10 + k];
@@ -49,7 +49,7 @@ void GwCLbCt::Give_ST(unsigned char* block)
 
 void GwCLbCt::Give_OT(unsigned char* block)
 {
-  UC blockSR[0x10];
+  UC blockSR[0x10] = {0};
 
   for (UC k = 0; k < 0x10; ++k)
     blockSR[k] = block_R[l_o_IV - 0x10 + k];

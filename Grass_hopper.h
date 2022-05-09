@@ -4,6 +4,7 @@ class Grass_hopper
 public:
   Grass_hopper();
   ~Grass_hopper();
+
   virtual void push_key(const unsigned char* key_new);
   virtual void Give_ST(unsigned char* block);
   virtual void Give_OT(unsigned char* block);
@@ -20,8 +21,8 @@ protected:
 
   unsigned char key[0x20], keys[0xa][0x10];
 
-
+private:
   Grass_hopper(const Grass_hopper&);
-  virtual Grass_hopper& operator=(const Grass_hopper&) {};
+  Grass_hopper& operator=(const Grass_hopper&);
 };
 
