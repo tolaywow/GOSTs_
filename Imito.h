@@ -60,20 +60,23 @@ void Imito<CRYPTO, n>::imito_final(UI8* block, const UI8 length_of_block_in_byte
   if (length_of_block_in_byte != n / 0x8)
   {
     CRYPTO::xors(K2, block_to_xor);
-
+        
     UI8* z;
 
     z = new UI8[n / 0x8];
 
-    for (unsigned char k = 0; k < length_of_block_in_byte; ++k)
-      z[n / 0x8 - length_of_block_in_byte + k] = block[k];
+    for (UI8 i = 0; i < n / 0x8; i++)
+      z[i] = 0;
+
+    for (unsigned char kk = 0; kk < length_of_block_in_byte; ++kk)
+      z[n / 0x8 - length_of_block_in_byte + kk] = block[kk];
 
     z[n / 0x8 - length_of_block_in_byte - 0x1] = 0x80;
 
     CRYPTO::xors(z, block_to_xor);
 
     delete[] z;
-    CRYPTO::Give_ST(block_to_xor);
+    CRYPTO::Give_ST(block_to_xor);    
 
     for (UI8 i = 0; i < n / 0x8; i++)
       block[i] = block_to_xor[i];

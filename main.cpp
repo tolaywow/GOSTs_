@@ -4,12 +4,12 @@
 #include "Grass_hopper.h"
 #include <fstream>
 
-
-#define UC unsigned char
 #define qq >>std::noskipws>>
 #define pp <<std::noskipws<<
-#define TEST
-#define ENCRYPT
+//#define TEST
+//#define ENCRYPT
+#define DECRYPT
+//#define GENERATOR
 
 int main()
 {
@@ -20,14 +20,14 @@ int main()
 
     unsigned __int8 IV[0x8] = { 0xef, 0xac, 0x90, 0x78, 0x56, 0x34, 0x12 };
 
-    UC text[0x10] = { 0 };
+    UI8 text[0x10] = { 0 };
 
     //x.push_IV(IV);
 
-    UC key[0x20] = { 0 };
+    UI8 key[0x20] = { 0 };
 
     {
-      UC key_r[] =
+      UI8 key_r[] =
       {
         0x88, 0x99, 0xaa, 0xbb,
         0xcc, 0xdd, 0xee, 0xff,
@@ -39,7 +39,7 @@ int main()
         0x89, 0xab, 0xcd, 0xef
       };
 
-      for (UC k = 0; k < 0x20; ++k)
+      for (UI8 k = 0; k < 0x20; ++k)
         key[k] = key_r[0x1f - k];
 
       x.push_key(key);
@@ -54,10 +54,10 @@ int main()
   {
     Imito<Grass_hopper, 0x80> x;
 
-    UC key[0x20] = { 0 };
+    UI8 key[0x20] = { 0 };
 
     {
-      UC key_r[] =
+      UI8 key_r[] =
       {
       0x88, 0x99, 0xaa, 0xbb,
         0xcc, 0xdd, 0xee, 0xff,
@@ -69,7 +69,7 @@ int main()
         0x89, 0xab, 0xcd, 0xef
       };
 
-      for (UC k = 0; k < 0x20; ++k)
+      for (UI8 k = 0; k < 0x20; ++k)
         key[k] = key_r[0x1f - k];
 
       x.push_key(key);
@@ -77,10 +77,10 @@ int main()
 
       //P1
       {
-        UC P1[0x10] = { 0 };
+        UI8 P1[0x10] = { 0 };
 
         {
-          UC P1_r[] =
+          UI8 P1_r[] =
           {
             0x11, 0x22, 0x33, 0x44,
             0x55, 0x66, 0x77, 0x00,
@@ -88,7 +88,7 @@ int main()
             0xbb, 0xaa, 0x99, 0x88
           };
 
-          for (UC k = 0; k < 0x10; ++k)
+          for (UI8 k = 0; k < 0x10; ++k)
             P1[k] = P1_r[0xf - k];
         }
 
@@ -96,10 +96,10 @@ int main()
       }
       //P2
       {
-        UC P2[0x10] = { 0 };
+        UI8 P2[0x10] = { 0 };
 
         {
-          UC P2_r[] =
+          UI8 P2_r[] =
           {
             0x00, 0x11, 0x22, 0x33,
             0x44, 0x55, 0x66, 0x77,
@@ -107,7 +107,7 @@ int main()
             0xcc, 0xee, 0xff, 0x0a
           };
 
-          for (UC k = 0; k < 0x10; ++k)
+          for (UI8 k = 0; k < 0x10; ++k)
             P2[k] = P2_r[0xf - k];
         }
 
@@ -116,10 +116,10 @@ int main()
 
       //P3
       {
-        UC P3[0x10] = { 0 };
+        UI8 P3[0x10] = { 0 };
 
         {
-          UC P3_r[] =
+          UI8 P3_r[] =
           {
             0x11, 0x22, 0x33, 0x44,
             0x55, 0x66, 0x77, 0x88,
@@ -127,7 +127,7 @@ int main()
             0xee, 0xff, 0x0a, 0x00
           };
 
-          for (UC k = 0; k < 0x10; ++k)
+          for (UI8 k = 0; k < 0x10; ++k)
             P3[k] = P3_r[0xf - k];
         }
 
@@ -136,10 +136,10 @@ int main()
 
       //P4
       {
-        UC P4[0x10] = { 0 };
+        UI8 P4[0x10] = { 0 };
 
         {
-          UC P4_r[] =
+          UI8 P4_r[] =
           {
             0x22, 0x33, 0x44, 0x55,
             0x66, 0x77, 0x88, 0x99,
@@ -147,7 +147,7 @@ int main()
             0xff, 0x0a, 0x00, 0x11
           };
 
-          for (UC k = 0; k < 0x10; ++k)
+          for (UI8 k = 0; k < 0x10; ++k)
             P4[k] = P4_r[0xf - k];
         }
 
@@ -162,10 +162,10 @@ int main()
     GwCLbCT<Grass_hopper, 0x80> x(0x20);
 
     {
-      UC key[0x20] = { 0 };
+      UI8 key[0x20] = { 0 };
 
       {
-        UC key_r[] =
+        UI8 key_r[] =
         {
           0x88, 0x99, 0xaa, 0xbb,
           0xcc, 0xdd, 0xee, 0xff,
@@ -177,13 +177,13 @@ int main()
           0x89, 0xab, 0xcd, 0xef
         };
 
-        for (UC k = 0; k < 0x20; ++k)
+        for (UI8 k = 0; k < 0x20; ++k)
           key[k] = key_r[0x1f - k];
       }
 
-      UC IV[0x20] = { 0 };
+      UI8 IV[0x20] = { 0 };
 
-      UC IV_[0x20] =
+      UI8 IV_[0x20] =
       {
         0x12, 0x34, 0x56, 0x78,
         0x90, 0xab, 0xce, 0xf0,
@@ -195,7 +195,7 @@ int main()
         0x16, 0x17, 0x18, 0x19
       };
 
-      for (UC k = 0; k < 0x20; ++k)
+      for (UI8 k = 0; k < 0x20; ++k)
         IV[k] = IV_[0x1f - k];
 
 
@@ -203,10 +203,10 @@ int main()
 
       //P1
       {
-        UC P1[0x10] = { 0 };
+        UI8 P1[0x10] = { 0 };
 
         {
-          UC P1_r[] =
+          UI8 P1_r[] =
           {
             0x11, 0x22, 0x33, 0x44,
             0x55, 0x66, 0x77, 0x00,
@@ -214,7 +214,7 @@ int main()
             0xbb, 0xaa, 0x99, 0x88
           };
 
-          for (UC k = 0; k < 0x10; ++k)
+          for (UI8 k = 0; k < 0x10; ++k)
             P1[k] = P1_r[0xf - k];
         }
 
@@ -223,10 +223,10 @@ int main()
 
       //P2
       {
-        UC P2[0x10] = { 0 };
+        UI8 P2[0x10] = { 0 };
 
         {
-          UC P2_r[] =
+          UI8 P2_r[] =
           {
             0x00, 0x11, 0x22, 0x33,
             0x44, 0x55, 0x66, 0x77,
@@ -234,7 +234,7 @@ int main()
             0xcc, 0xee, 0xff, 0x0a
           };
 
-          for (UC k = 0; k < 0x10; ++k)
+          for (UI8 k = 0; k < 0x10; ++k)
             P2[k] = P2_r[0xf - k];
         }
 
@@ -243,10 +243,10 @@ int main()
 
       //P3
       {
-        UC P3[0x10] = { 0 };
+        UI8 P3[0x10] = { 0 };
 
         {
-          UC P3_r[] =
+          UI8 P3_r[] =
           {
             0x11, 0x22, 0x33, 0x44,
             0x55, 0x66, 0x77, 0x88,
@@ -254,7 +254,7 @@ int main()
             0xee, 0xff, 0x0a, 0x00
           };
 
-          for (UC k = 0; k < 0x10; ++k)
+          for (UI8 k = 0; k < 0x10; ++k)
             P3[k] = P3_r[0xf - k];
         }
 
@@ -263,10 +263,10 @@ int main()
 
       //P4
       {
-        UC P4[0x10] = { 0 };
+        UI8 P4[0x10] = { 0 };
 
         {
-          UC P4_r[] =
+          UI8 P4_r[] =
           {
             0x22, 0x33, 0x44, 0x55,
             0x66, 0x77, 0x88, 0x99,
@@ -274,7 +274,7 @@ int main()
             0xff, 0x0a, 0x00, 0x11
           };
 
-          for (UC k = 0; k < 0x10; ++k)
+          for (UI8 k = 0; k < 0x10; ++k)
             P4[k] = P4_r[0xf - k];
         }
 
@@ -283,44 +283,71 @@ int main()
     }
   }
 
-#endif 
+#endif // TEST
 
 #ifdef ENCRYPT
   {
-    GwCLbCT<Grass_hopper, 0x80> x(0x20);
-  
-    Imito<Grass_hopper, 0x80> summ;
+    UI64 pos = 0;
+
+    {
+      std::fstream POS("pos.txt");
+
+      if (!(POS qq pos))
+
+      {
+        if (POS.is_open())
+          POS pp 0x0;
+        else
+        {
+          std::ofstream CF("pos.txt");
+          CF pp 0x0;
+        }
+      }
+    }
 
     std::ifstream KEY("key", std::ios_base::binary);
-    std::ifstream TEXT("text", std::ios_base::binary);
+
     std::ifstream IV("IV", std::ios_base::binary);
 
-    std::ofstream OUT("OUT", std::ios_base::binary);
+    unsigned __int8 key[0x20] = { 0 }, iv[0x20] = { 0 };
 
-    unsigned __int8 key[0x20] = { 0 }, iv[0x20] = {0};
+    unsigned __int64 length_of_file = 0, loe = 0;
 
-    unsigned __int64 length_of_file = 0,loe=0;
+    KEY.seekg(0x40 * pos);
 
-    for (UC i = 0; i < 0x20; i++)
+    IV.seekg(0x20 * pos);
+
+    for (UI8 i = 0; i < 0x20; i++)
     {
       KEY qq key[i];
       IV qq iv[i];
     }
-    
-    x.push_IV_and_key(iv,key);
+
+    GwCLbCT<Grass_hopper, 0x80> x(0x20);
+
+    Imito<Grass_hopper, 0x80> summ;
+
+    x.push_IV_and_key(iv, key);
+
+    for (UI8 i = 0; i < 0x20; i++)
+      KEY qq key[i];
+
     summ.push_key(key);
 
-    
+    std::ifstream TEXT("file_in", std::ios_base::binary);
+
     TEXT.seekg(0, std::ios::end);
 
     length_of_file = TEXT.tellg();
 
     TEXT.seekg(0);
 
-    while (loe<length_of_file)
+    std::ofstream OUT("file_out.txt", std::ios_base::binary);
+
+    while (loe < length_of_file)
     {
-      UC k = 0;
-      UC block1[0x10] = {0};
+      UI8 k = 0;
+      UI8 block1[0x10] = { 0 };
 
       while (k < 0x10 && (TEXT qq block1[k]))
       {
@@ -330,34 +357,38 @@ int main()
 
       if (loe == length_of_file)
       {
-        UC block_temp[0x10] = {0};
-        for (UC i = 0; i < 0x10; i++)
+        UI8 block_temp[0x10] = { 0 };
+
+        for (UI8 i = 0; i < 0x10; i++)
         {
           block_temp[i] = block1[i];
         }
-        
-        x.Give_ST(block1, k);
-        
 
-        for (UC i = 0; i < k; i++)
+        x.Give_ST(block1, k);
+
+
+        for (UI8 i = 0; i < k; i++)
         {
           OUT pp block1[i];
         }
 
-        /*summ.imito_final(block_temp, k);
+        summ.imito_final(block_temp, k);
 
-        for (UC i = 0; i <0x10; i++)
+        std::ofstream IM("imito.txt", std::ios_base::binary);
+
+        for (UI8 i = 0; i < 0x10; i++)
         {
-          OUT << std::noskipws << block_temp[i];
-        }*/
+          IM pp block_temp[i];
+        }
 
       }
       else
       {
-        //summ.imito_step(block);
-        x.Give_ST(block1);        
+        summ.imito_step(block1);
 
-        for (UC i = 0; i < 0x10; i++)
+        x.Give_ST(block1);
+
+        for (UI8 i = 0; i < 0x10; i++)
         {
           OUT pp block1[i];
         }
@@ -366,9 +397,201 @@ int main()
       k = 0;
     }
   }
-#endif
 
 
+
+#endif// ENCRYPT
+
+#ifdef DECRYPT
+  {
+    GwCLbCT<Grass_hopper, 0x80> x(0x20);
+
+    Imito<Grass_hopper, 0x80> summ;
+
+    UI64 pos = 0;
+    std::fstream POS("pos.txt");
+
+    if (!(POS qq pos))
+    {
+      if (POS.is_open())
+        POS pp 0x0;
+      else
+      {
+        std::ofstream CF("pos.txt");
+        CF pp 0x0;
+      }
+    }
+
+    std::ifstream KEY("key", std::ios_base::binary);
+
+    std::ifstream IV("IV", std::ios_base::binary);
+
+    unsigned __int8 key[0x20] = { 0 }, iv[0x20] = { 0 };
+
+    unsigned __int64 length_of_file = 0, loe = 0;
+
+    KEY.seekg(0x40 * pos);
+
+    IV.seekg(0x20 * pos);
+
+    for (UI8 i = 0; i < 0x20; i++)
+    {
+      KEY qq key[i];
+      IV qq iv[i];
+    }
+
+    x.push_IV_and_key(iv, key);
+
+    for (UI8 i = 0; i < 0x20; i++)
+    {
+      KEY qq key[i];
+    }
+
+    summ.push_key(key);
+
+    std::ifstream TEXT("file_out.txt", std::ios_base::binary);
+
+    TEXT.seekg(0, std::ios::end);
+
+    length_of_file = TEXT.tellg();
+
+    TEXT.seekg(0);
+
+    std::ofstream OUT("file_in", std::ios_base::binary);
+
+    while (loe < length_of_file)
+    {
+      UI8 k = 0;
+      UI8 block1[0x10] = { 0 };
+
+      while (k < 0x10 && (TEXT qq block1[k]))
+      {
+        ++k;
+        ++loe;
+      }
+
+      if (loe == length_of_file)
+      {
+        x.Give_OT(block1, k);
+
+        for (UI8 i = 0; i < k; i++)
+          OUT pp block1[i];
+
+        summ.imito_final(block1, k);
+
+        std::ifstream IM("imito.txt", std::ios_base::binary);
+        
+        for (UI8 i = 0; i < 0x10; i++)
+        {
+          UI8 z = 0;
+
+          IM qq z;
+          if (z != block1[i])
+          {
+            
+            OUT.close();
+            OUT.open("file_in", std::ios_base::trunc);
+            OUT.close();
+            std::ofstream ERROR("отчет об ошибке.txt",std::ios::ate);
+            ERROR pp "Имитовставка не совпала, расшифрованный файл очищен\n";
+          }
+        }
+
+      }
+      else
+      {
+        x.Give_OT(block1);
+        
+        summ.imito_step(block1);
+
+        for (UI8 i = 0; i < 0x10; i++)
+        {
+          OUT pp block1[i];
+        }
+      }
+
+      k = 0;
+    }
+
+  }
+#endif // DECRYPT
+
+
+#ifdef GENERATOR
+  {    
+    std::fstream POS("pos");
+
+    UI64 pos = 0;
+
+    if (!(POS qq pos))
+    {
+      if (POS.is_open())
+        POS pp 0x1;
+      else
+      {
+        std::ofstream CF("pos");
+        CF pp 0x1;
+      }
+    }
+    else
+    {
+      POS.clear();
+      POS pp pos + 0x1;
+    }
+
+    Gamming<Grass_hopper, 0x80> generate;
+    
+    //push key
+    {
+      std::ifstream KEY("key.in", std::ios_base::binary);
+
+      KEY.seekg(0x20 * pos);
+
+      UI8 key[0x20] = {0};
+
+      for (UI8 i = 0; i < 0x20; i++)
+        KEY qq key[i];
+
+      generate.push_key(key);
+    }
+    
+    //push IV
+    {
+      std::ifstream IV("iv.in", std::ios_base::binary);
+
+      IV.seekg(0x8 * pos);
+
+      UI8 iv[0x8] = {0};
+
+      for (UI8 i = 0; i < 0x8; i++)
+        IV qq iv[i];
+
+      generate.push_IV(iv);
+    }
+
+    //generate
+    {
+      char name[0xff];
+
+      _itoa_s(static_cast<__int32>(pos), name, 0xa);
+
+      std::ofstream RES_KEYS(name, std::ios_base::binary);
+
+      UI16 k = 0x1;
+      while(k!=0)
+      {
+        UI8 res[0x10] = { 0 };
+        
+        generate.Give_ST(res);
+
+        for (UI8 i = 0; i < 0x10; ++i)
+          RES_KEYS pp res[i];
+        ++k;
+      }
+    }
+  }
+
+#endif// GENERATOR
 
   return 0;
 }
