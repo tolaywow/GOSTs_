@@ -4,6 +4,7 @@
 class Imito_GH :
   public Grass_hopper
 {
+  friend class Test_imito;
 public:
   Imito_GH();
 
@@ -12,10 +13,11 @@ public:
   virtual void imito_final(unsigned char* block);
   virtual void push_key(const unsigned char* key_new);
 
-protected:
+private:
   unsigned char block_to_xor[0x10];
   unsigned char key_imito[0x20];
 
+protected:
   virtual bool MSB(const unsigned char* block);
 };
 

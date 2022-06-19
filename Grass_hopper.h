@@ -1,9 +1,10 @@
 #pragma once
 class Grass_hopper
 {
+  friend class GH_test;
 public:
   Grass_hopper();
-  ~Grass_hopper();
+  virtual ~Grass_hopper();
 
   virtual void push_key(const unsigned char* key_new);
   virtual void Give_ST(unsigned char* block);
@@ -18,10 +19,10 @@ protected:
   virtual void L_l(unsigned char* block);
   virtual  void key_new(unsigned char* key1, unsigned char* key2, const unsigned char numkey);
   virtual void Form_Key();
-
-  unsigned char key[0x20], keys[0xa][0x10];
+  
 
 private:
+  unsigned char key[0x20], keys[0xa][0x10];
   Grass_hopper(const Grass_hopper&);
   Grass_hopper& operator=(const Grass_hopper&);
 };

@@ -6,7 +6,7 @@ Test_GwCLbCt::Test_GwCLbCt()
 {
   //push key
   {
-    UC key[0x20];
+    UC key[0x20] = {0};
 
     {
       UC key_r[] =
@@ -30,7 +30,7 @@ Test_GwCLbCt::Test_GwCLbCt()
 
   //push IV
   {
-    UC IV[0x20];
+    UC IV[0x20] = {0};
 
     UC IV_[0x20] =
     {
@@ -74,7 +74,7 @@ bool Test_GwCLbCt::test_C()
 {
   //P1
   {
-    UC P1[0x10];
+    UC P1[0x10] = { 0 };
 
     {
       UC P1_r[] =
@@ -106,7 +106,7 @@ bool Test_GwCLbCt::test_C()
 
   //P2
   {
-    UC P2[0x10];
+    UC P2[0x10] = { 0 };
 
     {
       UC P2_r[] =
@@ -138,7 +138,7 @@ bool Test_GwCLbCt::test_C()
 
   //P3
   {
-    UC P3[0x10];
+    UC P3[0x10] = { 0 };
 
     {
       UC P3_r[] =
@@ -170,7 +170,7 @@ bool Test_GwCLbCt::test_C()
 
   //P4
   {
-    UC P4[0x10];
+    UC P4[0x10] = { 0 };
 
     {
       UC P4_r[] =
@@ -208,7 +208,7 @@ bool Test_GwCLbCt::test_P()
 {
   //repush IV
   {
-    UC IV[0x20];
+    UC IV[0x20] = { 0 };
 
     UC IV_[0x20] =
     {
@@ -230,7 +230,7 @@ bool Test_GwCLbCt::test_P()
 
   //Ñ1
   {
-    UC C1[0x10];
+    UC C1[0x10] = { 0 };
 
     {
       UC C1_r[] =
@@ -262,7 +262,7 @@ bool Test_GwCLbCt::test_P()
 
   //C2
   {
-    UC C2[0x10];
+    UC C2[0x10] = { 0 };
 
     {
       UC C2_r[] =
@@ -295,7 +295,7 @@ bool Test_GwCLbCt::test_P()
 
   //C3
   {
-    UC C3[0x10];
+    UC C3[0x10] = { 0 };
 
     {
       UC C3_r[] =
@@ -327,7 +327,7 @@ bool Test_GwCLbCt::test_P()
 
   //C4
   {
-    UC C4[0x10];
+    UC C4[0x10] = { 0 };
 
     {
       UC C4_r[] =

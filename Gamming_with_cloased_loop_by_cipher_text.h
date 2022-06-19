@@ -6,6 +6,7 @@
 class GwCLbCt :
   public Grass_hopper
 {
+  friend class Test_GwCLbCt;
 public:
   GwCLbCt(const unsigned short length_of_IV = 0x20);
   virtual ~GwCLbCt();
@@ -18,7 +19,7 @@ public:
   virtual void Give_OT(unsigned char* block, const unsigned char length_last_not_full_block);
   virtual void push_s(const unsigned short s_in = 0x80);
 
-protected:
+private:
   unsigned char* block_R;
   unsigned short s, l_o_IV;
 };
