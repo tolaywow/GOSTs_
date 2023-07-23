@@ -14,6 +14,8 @@ protected:
   virtual bool test_l();
   virtual bool test_L();
   virtual bool test_Ki();
+  virtual bool test_N();
+  virtual bool test_hash();
 
 };
 

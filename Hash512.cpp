@@ -177,13 +177,11 @@ Hash512::Hash512()
 		N[i] = 0;
 		Summ[i] = 0;
 	}
-
-	Key_create();
 }
 
 UI8* Hash512::give_hash(UI8* text, UI64 length)
 {
-	UI8 _text[0x40];
+	UI8 zero[0x40] = { 0 };
 	UI64 step = 0;
 	//if |M|>=512
 	while (length >= 0x200)
@@ -191,44 +189,71 @@ UI8* Hash512::give_hash(UI8* text, UI64 length)
 		//_text=m
 		for (size_t i = 0; i < 0x40; i++)
 		{
-			_text[i] = text[step * 0x200 + i];
+			_text[i] = text[step * 0x40 + i];
 		}
 
+		g(_text, N);
 
+		N_();
+
+		summ(_text);
 
 		++step;
-		length -= 0x40;
+
+		length -= 0x200;
 	}
 
-	if(length>0)
+	for (size_t i = 0; i < length / 0x8; i++)
 	{
-		UI8 _text[0x40];
-
-		for (size_t i = 0; i < length/0x8; i++)
-		{
-			_text[i] = text[step * 0x200 + i];
-		}
-
-		if (length % 0x8 == 0)
-		{
-			_text[length % 0x8] = 0x1;
-
-			for (size_t i = length % 0x8 + 0x1; i < 0x40; i++)
-			{
-				_text[i] = 0;
-			}
-		}
-		else
-		{
-			_text[length % 0x8] = text[step * 0x200 + length % 0x8];
-		}
-
+		_text[i] = text[step * 0x40 + i];
 	}
-	
+
+	_text[length / 0x8] = 0x1;
+
+	for (size_t i = length / 0x8 + 0x1; i < 0x40; i++)
+	{
+		_text[i] = 0;
+	}
+
+	g(_text, N);
+
+	N_(static_cast<UI16>(length));
+
+	summ(_text);
+
+	g(N, zero);
+
+	g(Summ, zero);
+
 	return h;
 }
 
+void Hash512::g(UI8* text, UI8* definition)
+{
+	UI8 var1[0x40]={0};
+	UI8 var2[0x40] = { 0 };
 
+	for (size_t i = 0; i < 0x40; i++)
+	{
+		var1[i] = h[i];
+		var2[i] = text[i];
+	}
+	
+	xors(definition, var1);
+	S(var1);
+	P(var1);
+	L(var1);
+
+	E(var1, var2);
+
+	xors(h, var2);
+	xors(text, var2);
+
+	for (size_t i = 0; i < 0x40; i++)
+	{
+		h[i] = var2[i];
+	}
+}
 
 void Hash512::xors(UI8* key, UI8* block)
 {
@@ -248,7 +273,7 @@ void Hash512::S(UI8* block)
 
 void Hash512::P(UI8* block)
 {
-	UI8 var_block[0x40];
+	UI8 var_block[0x40] = {0};
 
 	for (size_t i = 0; i < 0x40; i++)
 	{
@@ -283,15 +308,15 @@ void Hash512::l(UI64* block)
 	*block = C;
 }
 
-void Hash512::Key_create()
+void Hash512::Key_create(UI8* block)
 {
 	for (size_t i = 0; i < 0x40; i++)
 	{
-		Keys[0][i] = h[i];
+		Keys[0][i] = block[i];
 	}
-	S(Keys[0]);
-	P(Keys[0]);
-	L(Keys[0]);
+	//S(Keys[0]);
+	//P(Keys[0]);
+	//L(Keys[0]);
 
 	for (size_t i = 0x1; i < 0xd; i++)
 	{
@@ -304,4 +329,75 @@ void Hash512::Key_create()
 		P(Keys[i]);
 		L(Keys[i]);
 	}
+}
+
+void Hash512::N_()
+{
+	UI8 var[0x40] = { 0 };
+
+	var[0x1] = 0x2;
+
+	summ_512(N,var);
+}
+
+void Hash512::N_(UI16 length)
+{
+	UI8 var[0x40] = { 0 };
+
+	var[0x0] = static_cast<UI8>(length);
+	var[0x1] = static_cast<UI8>(length >> 0x8);
+
+	summ_512(N, var);
+}
+
+void Hash512::summ(UI8* block)
+{
+	summ_512(Summ, _text);
+}
+
+void Hash512::summ(UI16 length)
+{
+	UI8 var[0x40] = { 0 };
+
+	var[0x0] = static_cast<UI8>(length);
+	var[0x1] = static_cast<UI8>(length >> 0x8);
+
+	summ_512(Summ, var);
+}
+
+void Hash512::summ_512(UI8* block, UI8* summator)
+{
+	UI8 var = 0;
+	for (size_t i = 0; i < 0x40; i++)
+	{
+		if (I16(block[i]) + summator[i] > block[i] + summator[i])
+		{
+			block[i] = block[i] + summator[i] + var;
+
+			var = (I16(block[i]) + summator[i]) >> 0x8;
+		}
+		else
+		{
+			block[i] = block[i] + summator[i] + var;
+
+			var = 0;
+		}		
+	}
+}
+
+void Hash512::E(UI8* K, UI8* m)
+{
+	Key_create(K);
+
+
+
+	for (size_t i = 0; i < 0xc; i++)
+	{
+		xors(Keys[i], m);
+		S(m);
+		P(m);
+		L(m);
+	}
+
+	xors(Keys[0xc], m);
 }
