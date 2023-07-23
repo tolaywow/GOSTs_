@@ -2,14 +2,19 @@
 #include "Imito.h"
 #include "GwCLbCT.h"
 #include "Grass_hopper.h"
+#include "Magma.h"
+#include "Hash512.h"
+#include "H512_test.h"
 #include <fstream>
 
 #define qq >>std::noskipws>>
 #define pp <<std::noskipws<<
 //#define TEST
 //#define ENCRYPT
-#define DECRYPT
+//#define DECRYPT
 //#define GENERATOR
+#define H512
+
 
 int main()
 {
@@ -283,6 +288,8 @@ int main()
     }
   }
 
+  //
+
 #endif // TEST
 
 #ifdef ENCRYPT
@@ -516,7 +523,6 @@ int main()
   }
 #endif // DECRYPT
 
-
 #ifdef GENERATOR
   {    
     std::fstream POS("pos");
@@ -593,5 +599,9 @@ int main()
 
 #endif// GENERATOR
 
+#ifdef H512
+  H512_test Test_H512;
+  Test_H512.result_of_testing();
+#endif // H512
   return 0;
 }

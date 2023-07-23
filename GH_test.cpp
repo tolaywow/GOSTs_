@@ -1,5 +1,4 @@
 #include "GH_test.h"
-#define UC unsigned char
 
 GH_test::GH_test()
 {
@@ -66,7 +65,7 @@ bool GH_test::result_of_testing()
 
 bool GH_test::test_S()
 {
-  UC S[] =
+  UI8 S[] =
   {
     0x00, 0x77, 0x66, 0x55,
     0x44, 0x33, 0x22, 0x11,
@@ -74,7 +73,7 @@ bool GH_test::test_S()
     0xcc, 0xdd, 0xee, 0xff
   };
 
-  UC S_top[] =
+  UI8 S_top[] =
   {
     0xfc, 0x7e, 0x9a, 0x0c,
     0xea, 0xae, 0x65, 0x77,
@@ -84,7 +83,7 @@ bool GH_test::test_S()
 
   S_p(S);
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     if (S[k] != S_top[k])
     {
@@ -93,7 +92,7 @@ bool GH_test::test_S()
   }
 
   {
-    UC S_r[0x10] =
+    UI8 S_r[0x10] =
     {
       0x55, 0x9d, 0x8d, 0xd7,
       0xbd, 0x06, 0xcb, 0xfe,
@@ -101,7 +100,7 @@ bool GH_test::test_S()
       0x23, 0x28, 0x0d, 0x39
     };
 
-    for (UC i = 0; i < 0x10; i++)
+    for (UI8 i = 0; i < 0x10; i++)
     {
       S_top[i] = S_r[0xf - i];
 
@@ -110,7 +109,7 @@ bool GH_test::test_S()
 
   S_p(S);
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     if (S[k] != S_top[k])
     {
@@ -119,7 +118,7 @@ bool GH_test::test_S()
   }
 
   {
-    UC S_r[0x10] =
+    UI8 S_r[0x10] =
     {
       0x0c, 0x33, 0x22, 0xfe,
       0xd5, 0x31, 0xe4, 0x63,
@@ -127,7 +126,7 @@ bool GH_test::test_S()
       0x5a, 0x81, 0xc5, 0x0b
     };
 
-    for (UC i = 0; i < 0x10; i++)
+    for (UI8 i = 0; i < 0x10; i++)
     {
       S_top[i] = S_r[0xf - i];
 
@@ -136,7 +135,7 @@ bool GH_test::test_S()
 
   S_p(S);
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     if (S[k] != S_top[k])
     {
@@ -145,14 +144,14 @@ bool GH_test::test_S()
   }
 
   {
-    UC S_r[0x10] =
+    UI8 S_r[0x10] =
     {
       0x23, 0xae, 0x65, 0x63, 0x3f,
       0x84, 0x2d, 0x29, 0xc5, 0xdf,
       0x52, 0x9c, 0x13, 0xf5, 0xac, 0xda
     };
 
-    for (UC i = 0; i < 0x10; i++)
+    for (UI8 i = 0; i < 0x10; i++)
     {
       S_top[i] = S_r[0xf - i];
 
@@ -161,7 +160,7 @@ bool GH_test::test_S()
 
   S_p(S);
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     if (S[k] != S_top[k])
     {
@@ -174,15 +173,15 @@ bool GH_test::test_S()
 
 bool GH_test::test_L()
 {
-  UC L[0x10] ={};
+  UI8 L[0x10] ={};
 
   L[0x1] = 0x1;
 
-  for (UC i = 0; i < 3; i++)
+  for (UI8 i = 0; i < 3; i++)
   {
-    UC a0 = l(L);
+    UI8 a0 = l(L);
 
-    for (UC i = 0; i < 0x0f; ++i)
+    for (UI8 i = 0; i < 0x0f; ++i)
     {
       L[i] = L[i + 0x1];
     }
@@ -192,7 +191,7 @@ bool GH_test::test_L()
 
   //1
   {
-    UC L_top[0x10] =
+    UI8 L_top[0x10] =
     {
       0xd4, 0x56, 0x58, 0x4d,
       0xd0, 0xe3, 0xe8, 0x4c,
@@ -202,7 +201,7 @@ bool GH_test::test_L()
 
     L_p(L);
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       if (L[k] != L_top[0xf - k])
       {
@@ -213,7 +212,7 @@ bool GH_test::test_L()
 
   //2
   {
-    UC L_top[0x10] =
+    UI8 L_top[0x10] =
     {
       0x79, 0xd2, 0x62, 0x21,
       0xb8, 0x7b, 0x58, 0x4c,
@@ -223,7 +222,7 @@ bool GH_test::test_L()
 
     L_p(L);
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       if (L[k] != L_top[0xf - k])
       {
@@ -234,7 +233,7 @@ bool GH_test::test_L()
 
   //3
   {
-    UC L_top[0x10] =
+    UI8 L_top[0x10] =
     {
       0x0e, 0x93, 0x69, 0x1a,
       0x0c, 0xfc, 0x60, 0x40,
@@ -244,7 +243,7 @@ bool GH_test::test_L()
 
     L_p(L);
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       if (L[k] != L_top[0xf - k])
       {
@@ -255,7 +254,7 @@ bool GH_test::test_L()
 
   //4
   {
-    UC L_top[0x10] =
+    UI8 L_top[0x10] =
     {
       0xe6, 0xa8, 0x09, 0x4f,
       0xee, 0x0a, 0xa2, 0x04,
@@ -265,7 +264,7 @@ bool GH_test::test_L()
 
     L_p(L);
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       if (L[k] != L_top[0xf - k])
       {
@@ -279,10 +278,10 @@ bool GH_test::test_L()
 
 bool GH_test::test_X()
 {
-  UC b[0x10];
+  UI8 b[0x10];
 
   {
-    UC b_[] =
+    UI8 b_[] =
     {
       0x7f, 0x67, 0x9d, 0x90,
       0xbe, 0xbc, 0x24, 0x30,
@@ -290,16 +289,16 @@ bool GH_test::test_X()
       0xb9, 0xd4, 0xed, 0xcd
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       b[k] = b_[0xf - k];
     }
   }
 
-  UC key[0x10];
+  UI8 key[0x10];
 
   {
-    UC key_r[] = 
+    UI8 key_r[] = 
     {
       0x72, 0xe9, 0xdd, 0x74,
       0x16, 0xbc, 0xf4, 0x5b,
@@ -307,7 +306,7 @@ bool GH_test::test_X()
       0x8e, 0x4a, 0x40, 0x43
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       key[k] = key_r[0xf - k];
 
@@ -315,7 +314,7 @@ bool GH_test::test_X()
   }
 
   xors(key, b);
-  UC xb[] =
+  UI8 xb[] =
   {
     0x0d, 0x8e, 0x40, 0xe4,
     0xa8, 0x00, 0xd0, 0x6b,
@@ -323,7 +322,7 @@ bool GH_test::test_X()
     0x37, 0x9e, 0xad, 0x8e
   };
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
     if (b[k] != xb[0xf - k])
       return false;
   
@@ -334,10 +333,10 @@ bool GH_test::test_LX()
 {
 
 
-  UC b[0x10];
+  UI8 b[0x10];
 
   {
-    UC b_[] =
+    UI8 b_[] =
     {
       0x0d, 0x8e, 0x40, 0xe4,
       0xa8, 0x00, 0xd0, 0x6b,
@@ -345,7 +344,7 @@ bool GH_test::test_LX()
       0x37, 0x9e, 0xad, 0x8e
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       b[k] = b_[0xf - k];
     }
@@ -353,7 +352,7 @@ bool GH_test::test_LX()
 
   L_l(b);
 
-  UC lxb[] =
+  UI8 lxb[] =
   {
     0x8a, 0x6b, 0x93, 0x0a,
     0x52, 0x21, 0x1b, 0x45,
@@ -361,7 +360,7 @@ bool GH_test::test_LX()
     0xf8, 0xb9, 0x13, 0x19
   };
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     if (b[k] != lxb[0xf - k])
       return false;
@@ -372,7 +371,7 @@ bool GH_test::test_LX()
 
 bool GH_test::test_S_l()
 {
-  UC res[] =
+  UI8 res[] =
   {
     0x76, 0xca, 0x14, 0x9e,
     0xef, 0x27, 0xd1, 0xb1,
@@ -380,10 +379,10 @@ bool GH_test::test_S_l()
     0xd6, 0x8e, 0x5a, 0x72
   };
 
-  UC b[0x10];
+  UI8 b[0x10];
 
   {
-    UC b_[] =
+    UI8 b_[] =
     {
       0x8a, 0x6b, 0x93, 0x0a,
       0x52, 0x21, 0x1b, 0x45,
@@ -391,7 +390,7 @@ bool GH_test::test_S_l()
       0xf8, 0xb9, 0x13, 0x19
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       b[k] = b_[0xf - k];
     }
@@ -399,7 +398,7 @@ bool GH_test::test_S_l()
 
   S_l(b);
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     if (b[k] != res[0xf - k])
       return false;
@@ -410,7 +409,7 @@ bool GH_test::test_S_l()
 
 bool GH_test::test_SLX()
 {
-  UC res[] =
+  UI8 res[] =
   {
     0x99, 0xbb, 0x99, 0xff,
     0x99, 0xbb, 0x99, 0xff,
@@ -418,10 +417,10 @@ bool GH_test::test_SLX()
     0xff, 0xff, 0xff, 0xff
   };
 
-  UC b[0x10];
+  UI8 b[0x10];
 
   {
-    UC b_[] =
+    UI8 b_[] =
     {
       0x76, 0xca, 0x14, 0x9e,
       0xef, 0x27, 0xd1, 0xb1,
@@ -429,20 +428,20 @@ bool GH_test::test_SLX()
       0xd6, 0x8e, 0x5a, 0x72
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       b[k] = b_[0xf - k];
     }
   }
 
-  for (UC k = 0x8; k > 0; --k)
+  for (UI8 k = 0x8; k > 0; --k)
   {
     xors(keys[k], b);
     L_l(b);
     S_l(b);
   }
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     if (b[k] != res[0xf - k])
       return false;
@@ -454,7 +453,7 @@ bool GH_test::test_SLX()
 bool GH_test::test_keys()
 {  
   {
-    UC key_r[] =
+    UI8 key_r[] =
     {
       0x88, 0x99, 0xaa, 0xbb,
       0xcc, 0xdd, 0xee, 0xff,
@@ -466,14 +465,14 @@ bool GH_test::test_keys()
       0x89, 0xab, 0xcd, 0xef
     };
 
-    for (UC k = 0; k < 0x20; ++k)
+    for (UI8 k = 0; k < 0x20; ++k)
       key[k] = key_r[0x1f - k];
   }
 
   Form_Key();
 
   {
-    UC ks[0xa][0x10] =
+    UI8 ks[0xa][0x10] =
     {
       {
       0x88, 0x99, 0xaa, 0xbb,
@@ -537,9 +536,9 @@ bool GH_test::test_keys()
       } 
     };
 
-    for (UC i = 0; i < 0xa; i++)
+    for (UI8 i = 0; i < 0xa; i++)
     {
-      for (UC k = 0; k < 0x10; ++k)
+      for (UI8 k = 0; k < 0x10; ++k)
         if (keys[i][k] != ks[i][0xf - k])
           return false;
 
@@ -551,7 +550,7 @@ bool GH_test::test_keys()
 
 bool GH_test::test_cry()
 {
-  UC a[] =
+  UI8 a[] =
   {    
     0x88, 0x99, 0xaa,0xbb,
     0xcc, 0xdd, 0xee, 0xff,
@@ -559,7 +558,7 @@ bool GH_test::test_cry()
     0x44, 0x33, 0x22, 0x11
   };
 
-  UC b_[] =
+  UI8 b_[] =
   {
     0x7f, 0x67, 0x9d, 0x90,
     0xbe, 0xbc, 0x24, 0x30,
@@ -569,7 +568,7 @@ bool GH_test::test_cry()
   
   Give_ST(a);
 
-  for (UC k = 0; k < 0x10; ++k)  
+  for (UI8 k = 0; k < 0x10; ++k)  
     if (a[k] != b_[0xf - k])
       return false;
  
@@ -578,7 +577,7 @@ bool GH_test::test_cry()
 
 bool GH_test::test_not_cry()
 {
-  UC a_[] =
+  UI8 a_[] =
   {
     0x88, 0x99, 0xaa,0xbb,
     0xcc, 0xdd, 0xee, 0xff,
@@ -586,10 +585,10 @@ bool GH_test::test_not_cry()
     0x44, 0x33, 0x22, 0x11
   };
 
-  UC b[0x10];
+  UI8 b[0x10];
 
   {
-    UC b_[] =
+    UI8 b_[] =
     {
       0x7f, 0x67, 0x9d, 0x90,
       0xbe, 0xbc, 0x24, 0x30,
@@ -597,7 +596,7 @@ bool GH_test::test_not_cry()
       0xb9, 0xd4, 0xed, 0xcd
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
     {
       b[k] = b_[0xf - k];
     }
@@ -605,7 +604,7 @@ bool GH_test::test_not_cry()
 
   Give_OT(b);
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
     if (a_[k] != b[k])
       return false;
 

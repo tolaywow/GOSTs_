@@ -1,13 +1,13 @@
 #include "Test_imito.h"
 
-#define UC unsigned char
+
 
 Test_imito::Test_imito()
 {
-  UC key[0x20];
+  UI8 key[0x20];
 
   {
-    UC key_r[] =
+    UI8 key_r[] =
     {
       0x88, 0x99, 0xaa, 0xbb,
       0xcc, 0xdd, 0xee, 0xff,
@@ -19,7 +19,7 @@ Test_imito::Test_imito()
       0x89, 0xab, 0xcd, 0xef
     };
 
-    for (UC k = 0; k < 0x20; ++k)
+    for (UI8 k = 0; k < 0x20; ++k)
       key[k] = key_r[0x1f - k];
   }
 
@@ -57,11 +57,11 @@ bool Test_imito::result_of_testing()
 
 bool Test_imito::test_R()
 {
-  UC R[0x10] = { 0 };
+  UI8 R[0x10] = { 0 };
 
   Give_ST(R);
 
-  UC R_con[] =
+  UI8 R_con[] =
   {
     0x94, 0xbe, 0xc1, 0x5e,
     0x26, 0x9c, 0xf1, 0xe5,
@@ -69,7 +69,7 @@ bool Test_imito::test_R()
     0x4c, 0x0a, 0x8e, 0xa0
   };
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
     if (!(R_con[k] == R[0xf - k]))
       return false;
 
@@ -78,10 +78,10 @@ bool Test_imito::test_R()
 
 bool Test_imito::test_MSBR()
 {
-  UC R[0x10];
+  UI8 R[0x10];
 
   {
-    UC R_r[] =
+    UI8 R_r[] =
     {
       0x94, 0xbe, 0xc1, 0x5e,
       0x26, 0x9c, 0xf1, 0xe5,
@@ -89,7 +89,7 @@ bool Test_imito::test_MSBR()
       0x4c, 0x0a, 0x8e, 0xa0
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
       R[k] = R_r[0xf - k];
   }
 
@@ -101,8 +101,8 @@ bool Test_imito::test_MSBR()
 
 bool Test_imito::test_K1()
 {
-  UC key[0x20];
-  UC key_cons[]=
+  UI8 key[0x20];
+  UI8 key_cons[]=
   {
       0x29, 0x7d, 0x82, 0xbc,
       0x4d, 0x39, 0xe3, 0xca,
@@ -111,7 +111,7 @@ bool Test_imito::test_K1()
   };
 
   {
-    UC key_r[] =
+    UI8 key_r[] =
     {
       0x88, 0x99, 0xaa, 0xbb,
       0xcc, 0xdd, 0xee, 0xff,
@@ -123,13 +123,13 @@ bool Test_imito::test_K1()
       0x89, 0xab, 0xcd, 0xef
     };
 
-    for (UC k = 0; k < 0x20; ++k)
+    for (UI8 k = 0; k < 0x20; ++k)
       key[k] = key_r[0x1f - k];
   }
 
   push_key(key);
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
     if (key_imito[k] != key_cons[0xf - k])
       return false;
 
@@ -138,10 +138,10 @@ bool Test_imito::test_K1()
 
 bool Test_imito::test_MSBK1()
 {
-  UC K1[0x10];
+  UI8 K1[0x10];
 
   {
-    UC K1_r[] =
+    UI8 K1_r[] =
     {
       0x29, 0x7d, 0x82, 0xbc,
       0x4d, 0x39, 0xe3, 0xca,
@@ -149,7 +149,7 @@ bool Test_imito::test_MSBK1()
       0x98, 0x15, 0x1d, 0xc7
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
       K1[k] = K1_r[0xf - k];
   }
 
@@ -161,8 +161,8 @@ bool Test_imito::test_MSBK1()
 
 bool Test_imito::test_K2()
 {
-  UC key[0x20];
-  UC key_cons[] =
+  UI8 key[0x20];
+  UI8 key_cons[] =
   {
       0x52, 0xfb, 0x05, 0x78,
       0x9a, 0x73, 0xc7, 0x94,
@@ -171,7 +171,7 @@ bool Test_imito::test_K2()
   };
 
   {
-    UC key_r[] =
+    UI8 key_r[] =
     {
       0x88, 0x99, 0xaa, 0xbb,
       0xcc, 0xdd, 0xee, 0xff,
@@ -183,13 +183,13 @@ bool Test_imito::test_K2()
       0x89, 0xab, 0xcd, 0xef
     };
 
-    for (UC k = 0; k < 0x20; ++k)
+    for (UI8 k = 0; k < 0x20; ++k)
       key[k] = key_r[0x1f - k];
   }
 
   push_key(key);
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
     if (key_imito[k+0x10] != key_cons[0xf - k])
       return false;
 
@@ -201,10 +201,10 @@ bool Test_imito::test_P()
 {
   //P1
   {
-    UC P1[0x10];
+    UI8 P1[0x10];
 
     {
-      UC P1_r[] =
+      UI8 P1_r[] =
       {
         0x11, 0x22, 0x33, 0x44,
         0x55, 0x66, 0x77, 0x00,
@@ -212,13 +212,13 @@ bool Test_imito::test_P()
         0xbb, 0xaa, 0x99, 0x88
       };
 
-      for (UC k = 0; k < 0x10; ++k)
+      for (UI8 k = 0; k < 0x10; ++k)
         P1[k] = P1_r[0xf - k];
     }
 
     imito_step(P1);
 
-    UC OB[] =
+    UI8 OB[] =
     {
       0x7f, 0x67, 0x9d, 0x90,
       0xbe, 0xbc, 0x24, 0x30,
@@ -226,17 +226,17 @@ bool Test_imito::test_P()
       0xb9, 0xd4, 0xed, 0xcd
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
       if (block_to_xor[k] != OB[0xf - k])
         return false;
   }
 
   //P2
   {
-    UC P2[0x10];
+    UI8 P2[0x10];
 
     {
-      UC P2_r[] =
+      UI8 P2_r[] =
       {
         0x00, 0x11, 0x22, 0x33,
         0x44, 0x55, 0x66, 0x77,
@@ -244,13 +244,13 @@ bool Test_imito::test_P()
         0xcc, 0xee, 0xff, 0x0a
       };
 
-      for (UC k = 0; k < 0x10; ++k)
+      for (UI8 k = 0; k < 0x10; ++k)
         P2[k] = P2_r[0xf - k];
     }
 
     imito_step(P2);
 
-    UC OB[] =
+    UI8 OB[] =
     {
       0x1a, 0xc9, 0xd9, 0x76,
       0xf8, 0x36, 0x36, 0xf5,
@@ -258,17 +258,17 @@ bool Test_imito::test_P()
       0x5e, 0x7c, 0x90, 0xd2
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
       if (block_to_xor[k] != OB[0xf - k])
         return false;
   }
 
   //P3
   {
-    UC P3[0x10];
+    UI8 P3[0x10];
 
     {
-      UC P3_r[] =
+      UI8 P3_r[] =
       {
         0x11, 0x22, 0x33, 0x44,
         0x55, 0x66, 0x77, 0x88,
@@ -276,13 +276,13 @@ bool Test_imito::test_P()
         0xee, 0xff, 0x0a, 0x00
       };
 
-      for (UC k = 0; k < 0x10; ++k)
+      for (UI8 k = 0; k < 0x10; ++k)
         P3[k] = P3_r[0xf - k];
     }
 
     imito_step(P3);
 
-    UC OB[] =
+    UI8 OB[] =
     {
       0x15, 0x64, 0x5a, 0xf4,
       0xa7, 0x8e, 0x50, 0xa9,
@@ -290,17 +290,17 @@ bool Test_imito::test_P()
       0x75, 0x4d, 0xe3, 0xf2
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
       if (block_to_xor[k] != OB[0xf - k])
         return false;
   }
 
   //P4
   {
-    UC P4[0x10];
+    UI8 P4[0x10];
 
     {
-      UC P4_r[] =
+      UI8 P4_r[] =
       {
         0x22, 0x33, 0x44, 0x55,
         0x66, 0x77, 0x88, 0x99,
@@ -308,13 +308,13 @@ bool Test_imito::test_P()
         0xff, 0x0a, 0x00, 0x11
       };
 
-      for (UC k = 0; k < 0x10; ++k)
+      for (UI8 k = 0; k < 0x10; ++k)
         P4[k] = P4_r[0xf - k];
     }
 
     imito_final(P4);
 
-    UC OB[] =
+    UI8 OB[] =
     {
       0x33, 0x6f, 0x4d, 0x29,
       0x60, 0x59, 0xfb, 0xe3,
@@ -322,7 +322,7 @@ bool Test_imito::test_P()
       0x37, 0x74, 0x9c, 0x67
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
       if (block_to_xor[k] != OB[0xf - k])
         return false;
   }
@@ -332,22 +332,22 @@ bool Test_imito::test_P()
 
 bool Test_imito::test_P_not_full()
 {
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
     block_to_xor[k] = 0;
 
-  UC block[0x10] = { 0 };
+  UI8 block[0x10] = { 0 };
 
   block[0x0] = 0x1;
 
   imito_final(block, 0x1); 
 
-  UC block_cont[0x10] = { 0 };
+  UI8 block_cont[0x10] = { 0 };
 
   {
     block_cont[0xf] = 0x1;
     block_cont[0xe] = 0x80;
 
-    UC key_cons[] =
+    UI8 key_cons[] =
     {
         0x52, 0xfb, 0x05, 0x78,
         0x9a, 0x73, 0xc7, 0x94,
@@ -355,14 +355,14 @@ bool Test_imito::test_P_not_full()
         0x30, 0x2a, 0x3b, 0x8e
     };
 
-    for (UC k = 0; k < 0x10; ++k)
+    for (UI8 k = 0; k < 0x10; ++k)
       block_cont[k] ^= key_cons[0xf - k];
 
     Give_ST(block_cont);
 
   }
 
-  for (UC k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
     if (block[k] != block_cont[k])
       return false;
 

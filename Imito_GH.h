@@ -8,16 +8,16 @@ class Imito_GH :
 public:
   Imito_GH();
 
-  virtual void imito_step(const unsigned char* block);
-  virtual void imito_final(unsigned char* block, const unsigned char length_of_block_in_byte);
-  virtual void imito_final(unsigned char* block);
-  virtual void push_key(const unsigned char* key_new);
+  virtual void imito_step(const UI8* block);
+  virtual void imito_final(UI8* block, const UI8 length_of_block_in_byte);
+  virtual void imito_final(UI8* block);
+  virtual void push_key(const UI8* key_new);
 
 private:
-  unsigned char block_to_xor[0x10];
-  unsigned char key_imito[0x20];
+  UI8 block_to_xor[0x10];
+  UI8 key_imito[0x20];
 
 protected:
-  virtual bool MSB(const unsigned char* block);
+  virtual bool MSB(const UI8* block);
 };
 

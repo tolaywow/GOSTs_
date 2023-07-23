@@ -3,7 +3,7 @@
 
 namespace GH_pish
 {
-  unsigned char pi[] =
+  const UI8 pi[] =
   {
       0XFC, 0XEE, 0XDD, 0X11, 0XCF, 0X6E, 0X31, 0X16,
       0XFB, 0XC4, 0XFA, 0XDA, 0X23, 0XC5, 0X04, 0X4D,
@@ -39,7 +39,7 @@ namespace GH_pish
       0XD1, 0X66, 0XAF, 0XC2, 0X39, 0X4B, 0X63, 0XB6
   };
  
-  unsigned char pish[] =
+  const UI8 pish[] =
   {
       0XA5, 0X2D, 0X32, 0X8F, 0X0E, 0X30, 0X38, 0XC0, 
       0X54, 0XE6, 0X9E, 0X39, 0X55, 0X7E, 0X52, 0X91,
@@ -78,7 +78,7 @@ namespace GH_pish
 
 Grass_hopper::Grass_hopper()
 {
-  for (unsigned char k = 0; k < sizeof(key); ++k)
+  for (UI8 k = 0; k < sizeof(key); ++k)
   {
     key[k] = 0;
   }
@@ -91,10 +91,10 @@ Grass_hopper::~Grass_hopper()
 
 }
 
-void Grass_hopper::push_key(const unsigned char* key_new)
+void Grass_hopper::push_key(const UI8* key_new)
 {
 
-  for (unsigned char k = 0; k < 0x20; ++k)
+  for (UI8 k = 0; k < 0x20; ++k)
   {
     key[k] = key_new[k];
   }
@@ -102,9 +102,9 @@ void Grass_hopper::push_key(const unsigned char* key_new)
   Form_Key();
 }
 
-void Grass_hopper::Give_ST(unsigned char* block)
+void Grass_hopper::Give_ST(UI8* block)
 {
-  for (unsigned char k = 0; k < 0x9; ++k)
+  for (UI8 k = 0; k < 0x9; ++k)
   {
     xors(keys[k], block);
     S_p(block);
@@ -114,11 +114,11 @@ void Grass_hopper::Give_ST(unsigned char* block)
   xors(keys[0x9], block);
 }
 
-void Grass_hopper::Give_OT(unsigned char* block)
+void Grass_hopper::Give_OT(UI8* block)
 {
   //xors(keys[0x9], block);
 
-  for (unsigned char k = 0; k < 0x9; ++k)
+  for (UI8 k = 0; k < 0x9; ++k)
   {
     xors(keys[0x9 - k], block);
     L_l(block);
@@ -127,45 +127,45 @@ void Grass_hopper::Give_OT(unsigned char* block)
   xors(keys[0], block);
 }
 
-void Grass_hopper::xors(const unsigned __int8* Key, unsigned __int8* block)
+void Grass_hopper::xors(const UI8* Key, UI8* block)
 {
-  for (unsigned char k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     block[k] ^= Key[k];
   }
 }
 
-void Grass_hopper::S_p(unsigned char* block)
+void Grass_hopper::S_p(UI8* block)
 {
-  for (unsigned char k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     block[k] = GH_pish::pi[block[k]];
   }
 }
 
-void Grass_hopper::S_l(unsigned char* block)
+void Grass_hopper::S_l(UI8* block)
 {
-  for (unsigned char k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     block[k] = GH_pish::pish[block[k]];
   }
 }
 
-unsigned char Grass_hopper::l(const unsigned char* block)
+UI8 Grass_hopper::l(const UI8* block)
 {
-  unsigned int l_mass[] = {
+  UI32 l_mass[] = {
     0x01, 0x94, 0x20, 0x85,
     0x10, 0xc2, 0xc0, 0x01,
     0xfb, 0x01, 0xc0, 0xc2,
     0x10, 0x85, 0x20, 0x94 };
 
-  int a0 = 0;
-  static const int px = 0x1c3;
-  for (char i = 0; i < 0x10; ++i)
+  I32 a0 = 0;
+  static const I32 px = 0x1c3;
+  for (I8 i = 0; i < 0x10; ++i)
   {
     if (block[i] != 0)
     {
-      for (char j = 0; j < 0x8; ++j)
+      for (I8 j = 0; j < 0x8; ++j)
         if ((l_mass[i] ^ (1 << j)) < l_mass[i])
           a0 ^= (block[i] << j);
     }
@@ -177,13 +177,13 @@ unsigned char Grass_hopper::l(const unsigned char* block)
   return a0;
 }
 
-void Grass_hopper::L_p(unsigned char* block)
+void Grass_hopper::L_p(UI8* block)
 {
-  for (unsigned char k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
-    unsigned char a0 = l(block);
+    UI8 a0 = l(block);
 
-    for (unsigned char i = 0; i < 0x0f; ++i)
+    for (UI8 i = 0; i < 0x0f; ++i)
     {
       block[i] = block[i + 0x1];
     }
@@ -192,11 +192,11 @@ void Grass_hopper::L_p(unsigned char* block)
   }
 }
 
-void Grass_hopper::L_l(unsigned char* block)
+void Grass_hopper::L_l(UI8* block)
 {
-  for (unsigned char k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
-    unsigned char var = block[0x0f];
+    UI8 var = block[0x0f];
 
     for (int j = 0x0f; j > 0; --j)
     {
@@ -208,18 +208,18 @@ void Grass_hopper::L_l(unsigned char* block)
   }
 }
 
-void Grass_hopper::key_new(unsigned char* key1, unsigned char* key2, unsigned char numkey)
+void Grass_hopper::key_new(UI8* key1, UI8* key2, UI8 numkey)
 {
-  for (unsigned char i = 0x1; i < 0x9; ++i)
+  for (UI8 i = 0x1; i < 0x9; ++i)
   {
-    unsigned char key_n1[0x10];
+    UI8 key_n1[0x10];
 
-    for (unsigned char j = 0; j < 0x10; ++j)
+    for (UI8 j = 0; j < 0x10; ++j)
       key_n1[j] = key1[j];
 
-    unsigned char C[0x10];
+    UI8 C[0x10];
 
-    for (unsigned char j = 0x1; j < 0x10; ++j)
+    for (UI8 j = 0x1; j < 0x10; ++j)
       C[j] = 0;
 
     C[0] = 0x8 * (numkey - 0x1) + i;
@@ -230,23 +230,23 @@ void Grass_hopper::key_new(unsigned char* key1, unsigned char* key2, unsigned ch
     L_p(key1);
     xors(key2, key1);
 
-    for (char j = 0; j < 0x10; ++j)
+    for (I8 j = 0; j < 0x10; ++j)
       key2[j] = key_n1[j];
   }
 }
 
 void Grass_hopper::Form_Key()
 {
-  for (unsigned char k = 0; k < 0x10; ++k)
+  for (UI8 k = 0; k < 0x10; ++k)
   {
     keys[0][k]= key[0x10 + k];
 
     keys[0x1][k] = key[k];
   }
 
-  for (unsigned char k = 0x1; k < 0x5; ++k)
+  for (UI8 k = 0x1; k < 0x5; ++k)
   {
-    for (unsigned char i = 0; i < 0x10; ++i)
+    for (UI8 i = 0; i < 0x10; ++i)
     {
       keys[k * 0x2][i] = keys[k * 0x2 - 0x2][i];
 
