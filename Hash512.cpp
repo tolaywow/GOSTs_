@@ -179,7 +179,7 @@ Hash512::Hash512()
 	}
 }
 
-UI8* Hash512::give_hash(UI8* text, UI64 length)
+std::vector<UI8> Hash512::give_hash(UI8* text, UI64 length)
 {
 	UI8 zero[0x40] = { 0 };
 	UI64 step = 0;
@@ -225,7 +225,13 @@ UI8* Hash512::give_hash(UI8* text, UI64 length)
 
 	g(Summ, zero);
 
-	return h;
+	std::vector<UI8> H;
+	for (size_t i = 0; i < 0x40; i++)
+	{
+		H.push_back(h[i]);
+	}
+
+	return H;
 }
 
 void Hash512::g(UI8* text, UI8* definition)
@@ -370,11 +376,13 @@ void Hash512::summ_512(UI8* block, UI8* summator)
 	UI8 var = 0;
 	for (size_t i = 0; i < 0x40; i++)
 	{
-		if (I16(block[i]) + summator[i] > block[i] + summator[i])
+		if (I16(block[i]) + I16(summator[i]+var) > UI8(block[i] + summator[i])+var)
 		{
+			UI8 var1 = (I16(block[i]) + summator[i]+var) >> 0x8;
+			
 			block[i] = block[i] + summator[i] + var;
 
-			var = (I16(block[i]) + summator[i]) >> 0x8;
+			var = var1;
 		}
 		else
 		{
@@ -388,9 +396,7 @@ void Hash512::summ_512(UI8* block, UI8* summator)
 void Hash512::E(UI8* K, UI8* m)
 {
 	Key_create(K);
-
-
-
+	
 	for (size_t i = 0; i < 0xc; i++)
 	{
 		xors(Keys[i], m);

@@ -1,7 +1,7 @@
 #pragma once
 #include "Hash512.h"
 class H512_test :
-    public Hash512
+    protected Hash512
 {
 public:
   H512_test();
