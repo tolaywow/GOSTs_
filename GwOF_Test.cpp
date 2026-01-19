@@ -14,7 +14,7 @@ bool GwOF_Test::result_of_testing()
     return false;
 }
 
-bool GwOF_Test::result_of_testing(bool* mass)
+bool GwOF_Test::result_of_testing(bool *mass)
 {
   if (Test_of_vector())
   {
@@ -31,7 +31,7 @@ bool GwOF_Test::result_of_testing(bool* mass)
 bool GwOF_Test::Test_of_vector()
 {
   R.push_back(0x4);
-  if (R[0]==0x4)
+  if (R[0] == 0x4)
   {
     return true;
   }

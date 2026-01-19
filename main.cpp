@@ -12,162 +12,153 @@
 #include <fstream>
 
 /**
-* Ìàêðîñ çàìåíÿþùèé äëèííóþ çàïèñü(÷òåíèå) ïîòîêà â(èç) ôàéë(à) áåç ïðîïóñêà ïóñòûõ ñèìâîëîâ 
-*/
-#define qq >>std::noskipws>>
-#define pp <<std::noskipws<<
+ * ÐœÐ°ÐºÑ€Ð¾Ñ Ð·Ð°Ð¼ÐµÐ½ÑÑŽÑ‰Ð¸Ð¹ Ð´Ð»Ð¸Ð½Ð½ÑƒÑŽ Ð·Ð°Ð¿Ð¸ÑÑŒ(Ñ‡Ñ‚ÐµÐ½Ð¸Ðµ) Ð¿Ð¾Ñ‚Ð¾ÐºÐ° Ð²(Ð¸Ð·) Ñ„Ð°Ð¹Ð»(Ð°) Ð±ÐµÐ· Ð¿Ñ€Ð¾Ð¿ÑƒÑÐºÐ° Ð¿ÑƒÑÑ‚Ñ‹Ñ… ÑÐ¸Ð¼Ð²Ð¾Ð»Ð¾Ð²
+ */
+#define qq >> std::noskipws >>
+#define pp << std::noskipws <<
 
 /**
- * ïîäêëþ÷åíèå ìàêðîñîâ äëÿ âñåõ âàðèàíòîâ çàïóñêà ïðîåêòà
+ * Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð¼Ð°ÐºÑ€Ð¾ÑÐ¾Ð² Ð´Ð»Ñ Ð²ÑÐµÑ… Ð²Ð°Ñ€Ð¸Ð°Ð½Ñ‚Ð¾Ð² Ð·Ð°Ð¿ÑƒÑÐºÐ° Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð°
  */
 #define TEST
-//#define ENCRYPT
-//#define DECRYPT
-//#define GENERATOR
-//#define H512
+// #define ENCRYPT
+// #define DECRYPT
+// #define GENERATOR
+// #define H512
 
 /**
- * Ïðîåêò ñ òåñòèðîâàíèåì, çàøèôðîâàíèåì, ðàñøèôðîâàíèåì, õýøèðîâàíèåì(512) è
- * ãåíåðàòîðîì ïñåâäîñëó÷àéíîé ïîñëåäîâàòåëüíîñòè.
- * Âñå âàðèàíòû çàïóñêàþòñÿ ñ ïîìîùüþ ìàêðîñîâ
+ * ÐŸÑ€Ð¾ÐµÐºÑ‚ Ñ Ñ‚ÐµÑÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸ÐµÐ¼, Ð·Ð°ÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ð½Ð¸ÐµÐ¼, Ñ€Ð°ÑÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ð½Ð¸ÐµÐ¼, Ñ…ÑÑˆÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð¸ÐµÐ¼(512) Ð¸
+ * Ð³ÐµÐ½ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð¾Ð¼ Ð¿ÑÐµÐ²Ð´Ð¾ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ð¾Ð¹ Ð¿Ð¾ÑÐ»ÐµÐ´Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾ÑÑ‚Ð¸.
+ * Ð’ÑÐµ Ð²Ð°Ñ€Ð¸Ð°Ð½Ñ‚Ñ‹ Ð·Ð°Ð¿ÑƒÑÐºÐ°ÑŽÑ‚ÑÑ Ñ Ð¿Ð¾Ð¼Ð¾Ñ‰ÑŒÑŽ Ð¼Ð°ÐºÑ€Ð¾ÑÐ¾Ð²
  */
 int main()
 {
 #ifdef TEST
-  //Gamming test
+  // Gamming test
   {
     Gamming<Grass_hopper, 0x80> x(0x80);
 
-    unsigned __int8 IV[0x8] = { 0xef, 0xac, 0x90, 0x78, 0x56, 0x34, 0x12 };
+    unsigned __int8 IV[0x8] = {0xef, 0xac, 0x90, 0x78, 0x56, 0x34, 0x12};
 
-    UI8 text[0x10] = { 0 };
+    uint8_t text[0x10] = {0};
 
-    //x.push_IV(IV);
+    // x.push_IV(IV);
 
-    UI8 key[0x20] = { 0 };
+    uint8_t key[0x20] = {0};
 
     {
-      UI8 key_r[] =
-      {
-        0x88, 0x99, 0xaa, 0xbb,
-        0xcc, 0xdd, 0xee, 0xff,
-        0x00, 0x11, 0x22, 0x33,
-        0x44, 0x55, 0x66, 0x77,
-        0xfe, 0xdc, 0xba, 0x98,
-        0x76, 0x54, 0x32, 0x10,
-        0x01, 0x23, 0x45, 0x67,
-        0x89, 0xab, 0xcd, 0xef
-      };
+      uint8_t key_r[] =
+          {
+              0x88, 0x99, 0xaa, 0xbb,
+              0xcc, 0xdd, 0xee, 0xff,
+              0x00, 0x11, 0x22, 0x33,
+              0x44, 0x55, 0x66, 0x77,
+              0xfe, 0xdc, 0xba, 0x98,
+              0x76, 0x54, 0x32, 0x10,
+              0x01, 0x23, 0x45, 0x67,
+              0x89, 0xab, 0xcd, 0xef};
 
-      for (UI8 k = 0; k < 0x20; ++k)
+      for (uint8_t k = 0; k < 0x20; ++k)
         key[k] = key_r[0x1f - k];
 
       x.push_key(key);
 
       x.Give_ST(key);
-
     }
-
   }
 
-  //Imito test
+  // Imito test
   {
     Imito<Grass_hopper, 0x80> x;
 
-    UI8 key[0x20] = { 0 };
+    uint8_t key[0x20] = {0};
 
     {
-      UI8 key_r[] =
-      {
-      0x88, 0x99, 0xaa, 0xbb,
-        0xcc, 0xdd, 0xee, 0xff,
-        0x00, 0x11, 0x22, 0x33,
-        0x44, 0x55, 0x66, 0x77,
-        0xfe, 0xdc, 0xba, 0x98,
-        0x76, 0x54, 0x32, 0x10,
-        0x01, 0x23, 0x45, 0x67,
-        0x89, 0xab, 0xcd, 0xef
-      };
+      uint8_t key_r[] =
+          {
+              0x88, 0x99, 0xaa, 0xbb,
+              0xcc, 0xdd, 0xee, 0xff,
+              0x00, 0x11, 0x22, 0x33,
+              0x44, 0x55, 0x66, 0x77,
+              0xfe, 0xdc, 0xba, 0x98,
+              0x76, 0x54, 0x32, 0x10,
+              0x01, 0x23, 0x45, 0x67,
+              0x89, 0xab, 0xcd, 0xef};
 
-      for (UI8 k = 0; k < 0x20; ++k)
+      for (uint8_t k = 0; k < 0x20; ++k)
         key[k] = key_r[0x1f - k];
 
       x.push_key(key);
 
-
-      //P1
+      // P1
       {
-        UI8 P1[0x10] = { 0 };
+        uint8_t P1[0x10] = {0};
 
         {
-          UI8 P1_r[] =
-          {
-            0x11, 0x22, 0x33, 0x44,
-            0x55, 0x66, 0x77, 0x00,
-            0xff, 0xee, 0xdd, 0xcc,
-            0xbb, 0xaa, 0x99, 0x88
-          };
+          uint8_t P1_r[] =
+              {
+                  0x11, 0x22, 0x33, 0x44,
+                  0x55, 0x66, 0x77, 0x00,
+                  0xff, 0xee, 0xdd, 0xcc,
+                  0xbb, 0xaa, 0x99, 0x88};
 
-          for (UI8 k = 0; k < 0x10; ++k)
+          for (uint8_t k = 0; k < 0x10; ++k)
             P1[k] = P1_r[0xf - k];
         }
 
         x.imito_step(P1);
       }
-      //P2
+      // P2
       {
-        UI8 P2[0x10] = { 0 };
+        uint8_t P2[0x10] = {0};
 
         {
-          UI8 P2_r[] =
-          {
-            0x00, 0x11, 0x22, 0x33,
-            0x44, 0x55, 0x66, 0x77,
-            0x88, 0x99, 0xaa, 0xbb,
-            0xcc, 0xee, 0xff, 0x0a
-          };
+          uint8_t P2_r[] =
+              {
+                  0x00, 0x11, 0x22, 0x33,
+                  0x44, 0x55, 0x66, 0x77,
+                  0x88, 0x99, 0xaa, 0xbb,
+                  0xcc, 0xee, 0xff, 0x0a};
 
-          for (UI8 k = 0; k < 0x10; ++k)
+          for (uint8_t k = 0; k < 0x10; ++k)
             P2[k] = P2_r[0xf - k];
         }
 
         x.imito_step(P2);
       }
 
-      //P3
+      // P3
       {
-        UI8 P3[0x10] = { 0 };
+        uint8_t P3[0x10] = {0};
 
         {
-          UI8 P3_r[] =
-          {
-            0x11, 0x22, 0x33, 0x44,
-            0x55, 0x66, 0x77, 0x88,
-            0x99, 0xaa, 0xbb, 0xcc,
-            0xee, 0xff, 0x0a, 0x00
-          };
+          uint8_t P3_r[] =
+              {
+                  0x11, 0x22, 0x33, 0x44,
+                  0x55, 0x66, 0x77, 0x88,
+                  0x99, 0xaa, 0xbb, 0xcc,
+                  0xee, 0xff, 0x0a, 0x00};
 
-          for (UI8 k = 0; k < 0x10; ++k)
+          for (uint8_t k = 0; k < 0x10; ++k)
             P3[k] = P3_r[0xf - k];
         }
 
         x.imito_step(P3);
       }
 
-      //P4
+      // P4
       {
-        UI8 P4[0x10] = { 0 };
+        uint8_t P4[0x10] = {0};
 
         {
-          UI8 P4_r[] =
-          {
-            0x22, 0x33, 0x44, 0x55,
-            0x66, 0x77, 0x88, 0x99,
-            0xaa, 0xbb, 0xcc, 0xee,
-            0xff, 0x0a, 0x00, 0x11
-          };
+          uint8_t P4_r[] =
+              {
+                  0x22, 0x33, 0x44, 0x55,
+                  0x66, 0x77, 0x88, 0x99,
+                  0xaa, 0xbb, 0xcc, 0xee,
+                  0xff, 0x0a, 0x00, 0x11};
 
-          for (UI8 k = 0; k < 0x10; ++k)
+          for (uint8_t k = 0; k < 0x10; ++k)
             P4[k] = P4_r[0xf - k];
         }
 
@@ -177,124 +168,117 @@ int main()
     }
   }
 
-  //GwCLbCT
+  // GwCLbCT
   {
     GwCLbCT<Grass_hopper, 0x80> x(0x20);
 
     {
-      UI8 key[0x20] = { 0 };
+      uint8_t key[0x20] = {0};
 
       {
-        UI8 key_r[] =
-        {
-          0x88, 0x99, 0xaa, 0xbb,
-          0xcc, 0xdd, 0xee, 0xff,
-          0x00, 0x11, 0x22, 0x33,
-          0x44, 0x55, 0x66, 0x77,
-          0xfe, 0xdc, 0xba, 0x98,
-          0x76, 0x54, 0x32, 0x10,
-          0x01, 0x23, 0x45, 0x67,
-          0x89, 0xab, 0xcd, 0xef
-        };
+        uint8_t key_r[] =
+            {
+                0x88, 0x99, 0xaa, 0xbb,
+                0xcc, 0xdd, 0xee, 0xff,
+                0x00, 0x11, 0x22, 0x33,
+                0x44, 0x55, 0x66, 0x77,
+                0xfe, 0xdc, 0xba, 0x98,
+                0x76, 0x54, 0x32, 0x10,
+                0x01, 0x23, 0x45, 0x67,
+                0x89, 0xab, 0xcd, 0xef};
 
-        for (UI8 k = 0; k < 0x20; ++k)
+        for (uint8_t k = 0; k < 0x20; ++k)
           key[k] = key_r[0x1f - k];
       }
 
-      UI8 IV[0x20] = { 0 };
+      uint8_t IV[0x20] = {0};
 
-      UI8 IV_[0x20] =
-      {
-        0x12, 0x34, 0x56, 0x78,
-        0x90, 0xab, 0xce, 0xf0,
-        0xa1, 0xb2, 0xc3, 0xd4,
-        0xe5, 0xf0, 0x01, 0x12,
-        0x23, 0x34, 0x45, 0x56,
-        0x67, 0x78, 0x89, 0x90,
-        0x12, 0x13, 0x14, 0x15,
-        0x16, 0x17, 0x18, 0x19
-      };
+      uint8_t IV_[0x20] =
+          {
+              0x12, 0x34, 0x56, 0x78,
+              0x90, 0xab, 0xce, 0xf0,
+              0xa1, 0xb2, 0xc3, 0xd4,
+              0xe5, 0xf0, 0x01, 0x12,
+              0x23, 0x34, 0x45, 0x56,
+              0x67, 0x78, 0x89, 0x90,
+              0x12, 0x13, 0x14, 0x15,
+              0x16, 0x17, 0x18, 0x19};
 
-      for (UI8 k = 0; k < 0x20; ++k)
+      for (uint8_t k = 0; k < 0x20; ++k)
         IV[k] = IV_[0x1f - k];
-
 
       x.push_IV_and_key(IV, key);
 
-      //P1
+      // P1
       {
-        UI8 P1[0x10] = { 0 };
+        uint8_t P1[0x10] = {0};
 
         {
-          UI8 P1_r[] =
-          {
-            0x11, 0x22, 0x33, 0x44,
-            0x55, 0x66, 0x77, 0x00,
-            0xff, 0xee, 0xdd, 0xcc,
-            0xbb, 0xaa, 0x99, 0x88
-          };
+          uint8_t P1_r[] =
+              {
+                  0x11, 0x22, 0x33, 0x44,
+                  0x55, 0x66, 0x77, 0x00,
+                  0xff, 0xee, 0xdd, 0xcc,
+                  0xbb, 0xaa, 0x99, 0x88};
 
-          for (UI8 k = 0; k < 0x10; ++k)
+          for (uint8_t k = 0; k < 0x10; ++k)
             P1[k] = P1_r[0xf - k];
         }
 
         x.Give_ST(P1);
       }
 
-      //P2
+      // P2
       {
-        UI8 P2[0x10] = { 0 };
+        uint8_t P2[0x10] = {0};
 
         {
-          UI8 P2_r[] =
-          {
-            0x00, 0x11, 0x22, 0x33,
-            0x44, 0x55, 0x66, 0x77,
-            0x88, 0x99, 0xaa, 0xbb,
-            0xcc, 0xee, 0xff, 0x0a
-          };
+          uint8_t P2_r[] =
+              {
+                  0x00, 0x11, 0x22, 0x33,
+                  0x44, 0x55, 0x66, 0x77,
+                  0x88, 0x99, 0xaa, 0xbb,
+                  0xcc, 0xee, 0xff, 0x0a};
 
-          for (UI8 k = 0; k < 0x10; ++k)
+          for (uint8_t k = 0; k < 0x10; ++k)
             P2[k] = P2_r[0xf - k];
         }
 
         x.Give_ST(P2);
       }
 
-      //P3
+      // P3
       {
-        UI8 P3[0x10] = { 0 };
+        uint8_t P3[0x10] = {0};
 
         {
-          UI8 P3_r[] =
-          {
-            0x11, 0x22, 0x33, 0x44,
-            0x55, 0x66, 0x77, 0x88,
-            0x99, 0xaa, 0xbb, 0xcc,
-            0xee, 0xff, 0x0a, 0x00
-          };
+          uint8_t P3_r[] =
+              {
+                  0x11, 0x22, 0x33, 0x44,
+                  0x55, 0x66, 0x77, 0x88,
+                  0x99, 0xaa, 0xbb, 0xcc,
+                  0xee, 0xff, 0x0a, 0x00};
 
-          for (UI8 k = 0; k < 0x10; ++k)
+          for (uint8_t k = 0; k < 0x10; ++k)
             P3[k] = P3_r[0xf - k];
         }
 
         x.Give_ST(P3);
       }
 
-      //P4
+      // P4
       {
-        UI8 P4[0x10] = { 0 };
+        uint8_t P4[0x10] = {0};
 
         {
-          UI8 P4_r[] =
-          {
-            0x22, 0x33, 0x44, 0x55,
-            0x66, 0x77, 0x88, 0x99,
-            0xaa, 0xbb, 0xcc, 0xee,
-            0xff, 0x0a, 0x00, 0x11
-          };
+          uint8_t P4_r[] =
+              {
+                  0x22, 0x33, 0x44, 0x55,
+                  0x66, 0x77, 0x88, 0x99,
+                  0xaa, 0xbb, 0xcc, 0xee,
+                  0xff, 0x0a, 0x00, 0x11};
 
-          for (UI8 k = 0; k < 0x10; ++k)
+          for (uint8_t k = 0; k < 0x10; ++k)
             P4[k] = P4_r[0xf - k];
         }
 
@@ -303,38 +287,36 @@ int main()
     }
   }
 
-  //GwOF
+  // GwOF
   {
-   /* GwOF_Test x;
+    /* GwOF_Test x;
 
-    x.result_of_testing();*/
-    
+     x.result_of_testing();*/
+
     {
       Gamming_with_output_feedback<Grass_hopper, 128> z(128, 256);
       {
 
-        UI8 K_re[] = { 
-          0x88, 0x99, 0xaa, 0xbb,
-          0xcc, 0xdd, 0xee, 0xff,
-          0x00, 0x11, 0x22, 0x33,
-          0x44, 0x55, 0x66, 0x77,
-          0xfe, 0xdc, 0xba, 0x98,
-          0x76, 0x54, 0x32, 0x10,
-          0x01, 0x23, 0x45, 0x67,
-          0x89, 0xab, 0xcd, 0xef
-        };
+        uint8_t K_re[] = {
+            0x88, 0x99, 0xaa, 0xbb,
+            0xcc, 0xdd, 0xee, 0xff,
+            0x00, 0x11, 0x22, 0x33,
+            0x44, 0x55, 0x66, 0x77,
+            0xfe, 0xdc, 0xba, 0x98,
+            0x76, 0x54, 0x32, 0x10,
+            0x01, 0x23, 0x45, 0x67,
+            0x89, 0xab, 0xcd, 0xef};
 
-
-        UI8 IV_re[] = {
-          0x12, 0x34, 0x56, 0x78,
-          0x90, 0xab, 0xce, 0xf0,
-          0xa1, 0xb2, 0xc3, 0xd4,
-          0xe5, 0xf0, 0x01, 0x12,
-          0x23, 0x34, 0x45, 0x56,
-          0x67, 0x78, 0x89, 0x90,
-          0x12, 0x13, 0x14, 0x15,
-          0x16, 0x17, 0x18, 0x19 };
-        UI8 IV[0x20],K[0x20];
+        uint8_t IV_re[] = {
+            0x12, 0x34, 0x56, 0x78,
+            0x90, 0xab, 0xce, 0xf0,
+            0xa1, 0xb2, 0xc3, 0xd4,
+            0xe5, 0xf0, 0x01, 0x12,
+            0x23, 0x34, 0x45, 0x56,
+            0x67, 0x78, 0x89, 0x90,
+            0x12, 0x13, 0x14, 0x15,
+            0x16, 0x17, 0x18, 0x19};
+        uint8_t IV[0x20], K[0x20];
 
         for (size_t i = 0; i < 0x32; i++)
         {
@@ -343,39 +325,35 @@ int main()
         }
 
         z.push_IV_and_key(IV, K);
-
       }
 
-      //open text
-      UI8 P1_re[] = { 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x00, 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88 };
-      UI8 Ð2_re[] = { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xee, 0xff, 0x0a };
-      UI8 Ð3_re[] = { 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xee, 0xff, 0x0a, 0x00 };
-      UI8 Ð4_re[] = { 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xee, 0xff, 0x0a, 0x00, 0x11 };
+      // open text
+      uint8_t P1_re[] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x00, 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88};
+      uint8_t Ð 2_re[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xee, 0xff, 0x0a};
+      uint8_t Ð 3_re[] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xee, 0xff, 0x0a, 0x00};
+      uint8_t Ð 4_re[] = {0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xee, 0xff, 0x0a, 0x00, 0x11};
 
-      UI8 P1[0x10], P2[0x10], P3[0x10], P4[0x10];
+      uint8_t P1[0x10], P2[0x10], P3[0x10], P4[0x10];
 
       for (size_t i = 0; i < 0x10; i++)
       {
         P1[i] = P1_re[0xf - i];
-        P2[i] = Ð2_re[0xf - i];
-        P3[i] = Ð3_re[0xf - i];
-        P4[i] = Ð4_re[0xf - i];
+        P2[i] = Ð 2_re[0xf - i];
+        P3[i] = Ð 3_re[0xf - i];
+        P4[i] = Ð 4_re[0xf - i];
       }
       z.Give_ST(P1);
       z.Give_ST(P2);
       z.Give_ST(P3);
       z.Give_ST(P4);
     }
-
-    
-
   }
 
 #endif // TEST
 
 #ifdef ENCRYPT
   {
-    UI64 pos = 0;
+    uint64_t pos = 0;
 
     {
       std::fstream POS("pos.txt");
@@ -397,7 +375,7 @@ int main()
 
     std::ifstream IV("IV", std::ios_base::binary);
 
-    unsigned __int8 key[0x20] = { 0 }, iv[0x20] = { 0 };
+    unsigned __int8 key[0x20] = {0}, iv[0x20] = {0};
 
     unsigned __int64 length_of_file = 0, loe = 0;
 
@@ -405,7 +383,7 @@ int main()
 
     IV.seekg(0x20 * pos);
 
-    for (UI8 i = 0; i < 0x20; i++)
+    for (uint8_t i = 0; i < 0x20; i++)
     {
       KEY qq key[i];
       IV qq iv[i];
@@ -417,7 +395,7 @@ int main()
 
     x.push_IV_and_key(iv, key);
 
-    for (UI8 i = 0; i < 0x20; i++)
+    for (uint8_t i = 0; i < 0x20; i++)
       KEY qq key[i];
 
     summ.push_key(key);
@@ -434,8 +412,8 @@ int main()
 
     while (loe < length_of_file)
     {
-      UI8 k = 0;
-      UI8 block1[0x10] = { 0 };
+      uint8_t k = 0;
+      uint8_t block1[0x10] = {0};
 
       while (k < 0x10 && (TEXT qq block1[k]))
       {
@@ -445,17 +423,16 @@ int main()
 
       if (loe == length_of_file)
       {
-        UI8 block_temp[0x10] = { 0 };
+        uint8_t block_temp[0x10] = {0};
 
-        for (UI8 i = 0; i < 0x10; i++)
+        for (uint8_t i = 0; i < 0x10; i++)
         {
           block_temp[i] = block1[i];
         }
 
         x.Give_ST(block1, k);
 
-
-        for (UI8 i = 0; i < k; i++)
+        for (uint8_t i = 0; i < k; i++)
         {
           OUT pp block1[i];
         }
@@ -464,11 +441,10 @@ int main()
 
         std::ofstream IM("imito.txt", std::ios_base::binary);
 
-        for (UI8 i = 0; i < 0x10; i++)
+        for (uint8_t i = 0; i < 0x10; i++)
         {
           IM pp block_temp[i];
         }
-
       }
       else
       {
@@ -476,7 +452,7 @@ int main()
 
         x.Give_ST(block1);
 
-        for (UI8 i = 0; i < 0x10; i++)
+        for (uint8_t i = 0; i < 0x10; i++)
         {
           OUT pp block1[i];
         }
@@ -486,9 +462,7 @@ int main()
     }
   }
 
-
-
-#endif// ENCRYPT
+#endif // ENCRYPT
 
 #ifdef DECRYPT
   {
@@ -496,7 +470,7 @@ int main()
 
     Imito<Grass_hopper, 0x80> summ;
 
-    UI64 pos = 0;
+    uint64_t pos = 0;
     std::fstream POS("pos.txt");
 
     if (!(POS qq pos))
@@ -514,7 +488,7 @@ int main()
 
     std::ifstream IV("IV", std::ios_base::binary);
 
-    unsigned __int8 key[0x20] = { 0 }, iv[0x20] = { 0 };
+    unsigned __int8 key[0x20] = {0}, iv[0x20] = {0};
 
     unsigned __int64 length_of_file = 0, loe = 0;
 
@@ -522,7 +496,7 @@ int main()
 
     IV.seekg(0x20 * pos);
 
-    for (UI8 i = 0; i < 0x20; i++)
+    for (uint8_t i = 0; i < 0x20; i++)
     {
       KEY qq key[i];
       IV qq iv[i];
@@ -530,7 +504,7 @@ int main()
 
     x.push_IV_and_key(iv, key);
 
-    for (UI8 i = 0; i < 0x20; i++)
+    for (uint8_t i = 0; i < 0x20; i++)
     {
       KEY qq key[i];
     }
@@ -549,8 +523,8 @@ int main()
 
     while (loe < length_of_file)
     {
-      UI8 k = 0;
-      UI8 block1[0x10] = { 0 };
+      uint8_t k = 0;
+      uint8_t block1[0x10] = {0};
 
       while (k < 0x10 && (TEXT qq block1[k]))
       {
@@ -562,37 +536,36 @@ int main()
       {
         x.Give_OT(block1, k);
 
-        for (UI8 i = 0; i < k; i++)
+        for (uint8_t i = 0; i < k; i++)
           OUT pp block1[i];
 
         summ.imito_final(block1, k);
 
         std::ifstream IM("imito.txt", std::ios_base::binary);
-        
-        for (UI8 i = 0; i < 0x10; i++)
+
+        for (uint8_t i = 0; i < 0x10; i++)
         {
-          UI8 z = 0;
+          uint8_t z = 0;
 
           IM qq z;
           if (z != block1[i])
           {
-            
+
             OUT.close();
             OUT.open("file_in", std::ios_base::trunc);
             OUT.close();
-            std::ofstream ERROR("îò÷åò îá îøèáêå.txt",std::ios::ate);
-            ERROR pp "Èìèòîâñòàâêà íå ñîâïàëà, ðàñøèôðîâàííûé ôàéë î÷èùåí\n";
+            std::ofstream ERROR("Ð¾Ñ‚Ñ‡ÐµÑ‚ Ð¾Ð± Ð¾ÑˆÐ¸Ð±ÐºÐµ.txt", std::ios::ate);
+            ERROR pp "Ð˜Ð¼Ð¸Ñ‚Ð¾Ð²ÑÑ‚Ð°Ð²ÐºÐ° Ð½Ðµ ÑÐ¾Ð²Ð¿Ð°Ð»Ð°, Ñ€Ð°ÑÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ð¹ Ñ„Ð°Ð¹Ð» Ð¾Ñ‡Ð¸Ñ‰ÐµÐ½\n";
           }
         }
-
       }
       else
       {
         x.Give_OT(block1);
-        
+
         summ.imito_step(block1);
 
-        for (UI8 i = 0; i < 0x10; i++)
+        for (uint8_t i = 0; i < 0x10; i++)
         {
           OUT pp block1[i];
         }
@@ -600,15 +573,14 @@ int main()
 
       k = 0;
     }
-
   }
 #endif // DECRYPT
 
 #ifdef GENERATOR
-  {    
+  {
     std::fstream POS("pos");
 
-    UI64 pos = 0;
+    uint64_t pos = 0;
 
     if (!(POS qq pos))
     {
@@ -627,36 +599,36 @@ int main()
     }
 
     Gamming<Grass_hopper, 0x80> generate;
-    
-    //push key
+
+    // push key
     {
       std::ifstream KEY("key.in", std::ios_base::binary);
 
       KEY.seekg(0x20 * pos);
 
-      UI8 key[0x20] = {0};
+      uint8_t key[0x20] = {0};
 
-      for (UI8 i = 0; i < 0x20; i++)
+      for (uint8_t i = 0; i < 0x20; i++)
         KEY qq key[i];
 
       generate.push_key(key);
     }
-    
-    //push IV
+
+    // push IV
     {
       std::ifstream IV("iv.in", std::ios_base::binary);
 
       IV.seekg(0x8 * pos);
 
-      UI8 iv[0x8] = {0};
+      uint8_t iv[0x8] = {0};
 
-      for (UI8 i = 0; i < 0x8; i++)
+      for (uint8_t i = 0; i < 0x8; i++)
         IV qq iv[i];
 
       generate.push_IV(iv);
     }
 
-    //generate
+    // generate
     {
       char name[0xff];
 
@@ -664,21 +636,21 @@ int main()
 
       std::ofstream RES_KEYS(name, std::ios_base::binary);
 
-      UI16 k = 0x1;
-      while(k!=0)
+      uint16_t k = 0x1;
+      while (k != 0)
       {
-        UI8 res[0x10] = { 0 };
-        
+        uint8_t res[0x10] = {0};
+
         generate.Give_ST(res);
 
-        for (UI8 i = 0; i < 0x10; ++i)
+        for (uint8_t i = 0; i < 0x10; ++i)
           RES_KEYS pp res[i];
         ++k;
       }
     }
   }
 
-#endif// GENERATOR
+#endif // GENERATOR
 
 #ifdef H512
   H512_test Test_H512;

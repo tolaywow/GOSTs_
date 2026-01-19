@@ -1,29 +1,29 @@
 #pragma once
-#include<cstdint>
+#include <cstdint>
 
 template <class CRYPTO, const size_t n>
-class Imito:protected CRYPTO
+class Imito : protected CRYPTO
 {
 public:
   Imito();
   virtual ~Imito();
-  
-  virtual void imito_step(const uint8_t* block);
-  virtual void imito_final(uint8_t* block, const uint8_t length_of_block_in_byte);
-  virtual void imito_final(uint8_t* block);
-  virtual void push_key(const uint8_t* key_new);
+
+  virtual void imito_step(const uint8_t *block);
+  virtual void imito_final(uint8_t *block, const uint8_t length_of_block_in_byte);
+  virtual void imito_final(uint8_t *block);
+  virtual void push_key(const uint8_t *key_new);
 
 private:
-  uint8_t* block_to_xor;
-  uint8_t* R;
-  uint8_t* K1;
-  uint8_t* K2;
+  uint8_t *block_to_xor;
+  uint8_t *R;
+  uint8_t *K1;
+  uint8_t *K2;
 
 protected:
-  virtual bool MSB(const uint8_t* block);
+  virtual bool MSB(const uint8_t *block);
 };
 
-template<class CRYPTO, const size_t n>
+template <class CRYPTO, const size_t n>
 inline Imito<CRYPTO, n>::Imito()
 {
   block_to_xor = new uint8_t[n / 0x8];
@@ -38,30 +38,30 @@ inline Imito<CRYPTO, n>::Imito()
   }
 }
 
-template<class CRYPTO, const size_t n>
+template <class CRYPTO, const size_t n>
 inline Imito<CRYPTO, n>::~Imito()
 {
   delete[] R;
   delete[] K1;
-  delete[] K2;  
+  delete[] K2;
   delete[] block_to_xor;
 }
 
-template<class CRYPTO, size_t n>
-inline void Imito<CRYPTO, n>::imito_step(const uint8_t* block)
+template <class CRYPTO, size_t n>
+inline void Imito<CRYPTO, n>::imito_step(const uint8_t *block)
 {
   CRYPTO::xors(block, block_to_xor);
   CRYPTO::Give_ST(block_to_xor);
 }
 
-template<class CRYPTO, size_t n>
-void Imito<CRYPTO, n>::imito_final(uint8_t* block, const uint8_t length_of_block_in_byte)
+template <class CRYPTO, size_t n>
+void Imito<CRYPTO, n>::imito_final(uint8_t *block, const uint8_t length_of_block_in_byte)
 {
   if (length_of_block_in_byte != n / 0x8)
   {
     CRYPTO::xors(K2, block_to_xor);
-        
-    uint8_t* z;
+
+    uint8_t *z;
 
     z = new uint8_t[n / 0x8];
 
@@ -76,18 +76,17 @@ void Imito<CRYPTO, n>::imito_final(uint8_t* block, const uint8_t length_of_block
     CRYPTO::xors(z, block_to_xor);
 
     delete[] z;
-    CRYPTO::Give_ST(block_to_xor);    
+    CRYPTO::Give_ST(block_to_xor);
 
     for (uint8_t i = 0; i < n / 0x8; i++)
       block[i] = block_to_xor[i];
   }
   else
     imito_final(block);
-
 }
 
-template<class CRYPTO, size_t n>
-void Imito<CRYPTO, n>::imito_final(uint8_t* block)
+template <class CRYPTO, size_t n>
+void Imito<CRYPTO, n>::imito_final(uint8_t *block)
 {
   CRYPTO::xors(K1, block_to_xor);
 
@@ -95,23 +94,22 @@ void Imito<CRYPTO, n>::imito_final(uint8_t* block)
 
   CRYPTO::Give_ST(block_to_xor);
 
-  for (uint8_t i = 0; i < n/0x8; i++)
+  for (uint8_t i = 0; i < n / 0x8; i++)
     block[i] = block_to_xor[i];
-
 }
 
-template<class CRYPTO, const size_t n>
-void Imito<CRYPTO, n>::push_key(const uint8_t* key_new)
+template <class CRYPTO, const size_t n>
+void Imito<CRYPTO, n>::push_key(const uint8_t *key_new)
 {
 
   CRYPTO::push_key(key_new);
 
   CRYPTO::Give_ST(R);
 
-  uint64_t* R64;
+  uint64_t *R64;
   R64 = new uint64_t[n / 0x40];
 
-  for (uint8_t k = 0; k < n/0x40; ++k)
+  for (uint8_t k = 0; k < n / 0x40; ++k)
     R64[k] = 0;
   for (uint8_t z = 0; z < n / 0x40; ++z)
     for (uint8_t k = 0; k < 0x8; ++k)
@@ -148,7 +146,7 @@ void Imito<CRYPTO, n>::push_key(const uint8_t* key_new)
 
   for (uint8_t k = 0; k < 0x8; ++k)
     for (uint8_t z = 0; z < n / 0x40; ++z)
-      K1[k+0x8*z]= static_cast<uint8_t>(R64[z] >> 0x8 * k);
+      K1[k + 0x8 * z] = static_cast<uint8_t>(R64[z] >> 0x8 * k);
 
   if (MSB(K1))
   {
@@ -187,8 +185,8 @@ void Imito<CRYPTO, n>::push_key(const uint8_t* key_new)
   delete[] R64;
 }
 
-template<class CRYPTO, size_t n>
-inline bool Imito<CRYPTO, n>::MSB(const uint8_t* block)
+template <class CRYPTO, size_t n>
+inline bool Imito<CRYPTO, n>::MSB(const uint8_t *block)
 {
-  return block[n/0x8-0x1]&0x80;
+  return block[n / 0x8 - 0x1] & 0x80;
 }

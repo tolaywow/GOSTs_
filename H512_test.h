@@ -1,12 +1,12 @@
 #pragma once
 #include "Hash512.h"
-class H512_test :
-    protected Hash512
+class H512_test : protected Hash512
 {
 public:
   H512_test();
-  virtual bool result_of_testing(bool* mass);
+  virtual bool result_of_testing(bool *mass);
   virtual bool result_of_testing();
+
 protected:
   virtual bool test_S();
   virtual bool test_P();
@@ -16,6 +16,4 @@ protected:
   virtual bool test_Ki();
   virtual bool test_N();
   virtual bool test_hash();
-
 };
-

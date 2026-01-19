@@ -1,5 +1,5 @@
 #pragma once
-// типы подключены в Ihash
+// С‚РёРїС‹ РїРѕРґРєР»СЋС‡РµРЅС‹ РІ Ihash
 #include "Ihash.h"
 
 
