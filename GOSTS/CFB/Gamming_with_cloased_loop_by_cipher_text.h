@@ -1,7 +1,23 @@
 #pragma once
+/**
+ * @file Gamming_with_cloased_loop_by_cipher_text.h
+ * @author Anatoliy Andreev (tolaywow@gmail.com)
+ * @brief Реализация алгоритма работы блочного шифрования "Кузнечик" в режиме
+ * гаммирования с обратной связью по шифртексту из ГОСТ 34.13.2015
+ * @version 1.0
+ * @date 2026-01-19
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include "Grass_hopper.h"
+/**
+ * @brief для использования при написании класса создан сокращенный макрос 
+ * 
+ */
 #define GwCLbCt Gamming_with_cloased_loop_by_cipher_text
 
+//TODO: изменить класс на шаблон для разных алгоритмов блочного шифрования
 class GwCLbCt : public Grass_hopper
 {
   friend class Test_GwCLbCt;

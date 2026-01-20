@@ -1,6 +1,21 @@
 #pragma once
+/**
+ * @file Grass_hopper.h
+ * @author Anatoliy Andreev (tolaywow@gmail.com)
+ * @brief Реализация алгоритма блочного шифрования "Кузнечик" из ГОСТ 34.12.2015
+ * @version 1.0
+ * @date 2026-01-19
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include <stdint.h>
-
+/**
+ * @brief Класс шифрования блоков по ГОСТ 34.12.2015, Алгоритм "Кузнечик"
+ * Создаем класс, погружаем выбранный ключ, при необходимости вызываем методы
+ * Give_OT для расшифрования блока и Give_ST для зашифрования блока
+ * 
+ */
 class Grass_hopper
 {
   friend class GH_test;

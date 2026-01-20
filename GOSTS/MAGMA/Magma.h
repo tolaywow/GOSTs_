@@ -1,4 +1,14 @@
 #pragma once
+/**
+ * @file Magma.h
+ * @author Anatoliy Andreev (tolaywow@gmail.com)
+ * @brief Реализация алгоритма блочного шифрования "Магма" из ГОСТ 34.12.2015
+ * @version 1.0
+ * @date 2026-01-19
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include <cstdint>
 class Magma
 {

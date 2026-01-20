@@ -1,9 +1,22 @@
 #pragma once
+/**
+ * @file Gamming.h
+ * @author Anatoliy Andreev (tolaywow@gmail.com)
+ * @brief Реализация алгоритма работы блочного шифрования в режиме
+ * гаммирования из ГОСТ 34.13.2015
+ * @version 1.0
+ * @date 2026-01-19
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include <cstdint>
 
 /**
- * Шаблон класса режима шифрования "гаммирование", где <class CRYPTO> алгоритм шифрования, <size_t n>
- *
+ * @brief 
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
  */
 template <class CRYPTO, size_t n>
 class Gamming : protected CRYPTO
@@ -26,6 +39,13 @@ private:
   uint16_t s;
 };
 
+/**
+ * @brief Construct a new Gamming< C R Y P T O, n>:: Gamming object
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
+ * @param s длина блока открытого текста, до которой обрезается шифргамма
+ */
 template <class CRYPTO, size_t n>
 inline Gamming<CRYPTO, n>::Gamming(const uint16_t &s) : s(s)
 {
@@ -34,6 +54,13 @@ inline Gamming<CRYPTO, n>::Gamming(const uint16_t &s) : s(s)
     Gamm[i] = 0;
 }
 
+/**
+ * @brief метод погружает в алгоритм синхропосылку
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
+ * @param IV указатель на C массив с синхропосылкой
+ */
 template <class CRYPTO, size_t n>
 inline void Gamming<CRYPTO, n>::push_IV(uint8_t *IV)
 {
@@ -41,18 +68,42 @@ inline void Gamming<CRYPTO, n>::push_IV(uint8_t *IV)
     Gamm[n / 0x10 + i] = IV[i];
 }
 
+/**
+ * @brief метод погружает в алгоритм ключ
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
+ * @param key указатель на C массив с ключом
+ */
 template <class CRYPTO, size_t n>
 inline void Gamming<CRYPTO, n>::push_key(uint8_t *key)
 {
   CRYPTO::push_key(key);
 }
 
+/**
+ * @brief получить шифртекст(шифртекст записывается в массив с открытым текстом)
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
+ * @param block указатель на блок открытого текста
+ */
 template <class CRYPTO, size_t n>
 inline void Gamming<CRYPTO, n>::Give_ST(uint8_t *block)
 {
   Give_ST(block, s);
 }
 
+/**
+ * @brief получить шифртекст для последнего блока
+ * можно не использовать, если последний блок равен предыдущим
+ * метод создан на случай, если выделено меньше памяти, чем на предыдущих блоках
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
+ * @param block 
+ * @param length_of_last_block 
+ */
 template <class CRYPTO, size_t n>
 inline void Gamming<CRYPTO, n>::Give_ST(uint8_t *block, const uint16_t &length_of_last_block)
 {
@@ -68,18 +119,37 @@ inline void Gamming<CRYPTO, n>::Give_ST(uint8_t *block, const uint16_t &length_o
   Add();
 }
 
+/**
+ * @brief Destroy the Gamming< C R Y P T O, n>:: Gamming object
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
+ */
 template <class CRYPTO, size_t n>
 inline Gamming<CRYPTO, n>::~Gamming()
 {
   delete[] Gamm;
 }
 
+/**
+ * @brief дополнение блока шифргаммы 1 по модулю n
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
+ */
 template <class CRYPTO, size_t n>
 inline void Gamming<CRYPTO, n>::Add()
 {
   Add(0);
 }
-
+/**
+ * @brief дополнение блока шифргаммы 1 по модулю n 
+ * метод рекурсивный из-за неопределенной длины блока
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
+ * @param num 
+ */
 template <class CRYPTO, size_t n>
 inline void Gamming<CRYPTO, n>::Add(const uint8_t &num)
 {
@@ -90,7 +160,15 @@ inline void Gamming<CRYPTO, n>::Add(const uint8_t &num)
       Add(num + 0x1);
   }
 }
-
+/**
+ * @brief получения шифрблока
+ * 
+ * @tparam CRYPTO Алгоритм блочного синхронного шифрования
+ * @tparam n длина ключа в битах для алгоритма шифрования
+ * @param block блок открытого текста
+ * @param CTR_after_encrypt шифргамма после зашифрования
+ * @param r количиство бит для обрезания
+ */
 template <class CRYPTO, size_t n>
 inline void Gamming<CRYPTO, n>::T_r(uint8_t *block, uint8_t *CTR_after_encrypt, const uint16_t &r)
 {
