@@ -1,16 +1,29 @@
 #include "Gamming_with_cloased_loop_by_cipher_text.h"
 
+/**
+ * @brief Construct a new Gw C Lb Ct:: Gw C Lb Ct object
+ * 
+ * @param length_of_IV Размер выделяемой памяти для синхропосылки
+ */
 GwCLbCt::GwCLbCt(const uint16_t length_of_IV) : l_o_IV(length_of_IV),
                                             s(0x80)
 {
   block_R = new uint8_t[length_of_IV];
 }
 
+/**
+ * @brief Destroy the Gw C Lb Ct:: Gw C Lb Ct object
+ * 
+ */
 GwCLbCt::~GwCLbCt()
 {
   delete[] block_R;
 }
-
+/**
+ * @brief Загрузить синхропосылку
+ * 
+ * @param IV Указатель на C-массив байт с синхропосылкой, не изменяется в методе
+ */
 void GwCLbCt::push_IV(const uint8_t *IV)
 {
   for (uint8_t k = 0; k < l_o_IV; ++k)
@@ -18,13 +31,23 @@ void GwCLbCt::push_IV(const uint8_t *IV)
     block_R[k] = IV[k];
   }
 }
-
+/**
+ * @brief Загрузить ключ и синхропосылку
+ * 
+ * @param IV Указатель на C-массив байт с синхропосылкой, не изменяется в методе
+ * @param key_new Указатель на C-массив байт с ключем, не изменяется в методе
+ */
 void GwCLbCt::push_IV_and_key(const uint8_t *IV, const uint8_t *key_new)
 {
   push_IV(IV);
   push_key(key_new);
 }
 
+/**
+ * @brief Получить зашифрованный текст из открытого
+ * 
+ * @param block Указатель на C-массив байт с блоком открытого текста, в него же записывается результат шифрования
+ */
 void GwCLbCt::Give_ST(uint8_t *block)
 {
   uint8_t blockSR[0x10] = {0};
@@ -44,6 +67,11 @@ void GwCLbCt::Give_ST(uint8_t *block)
     block_R[k] = block[k];
 }
 
+/**
+ * @brief  Получить открытый текст из зашифрованного
+ * 
+ * @param block Указатель на C-массив байт с блоком зашифрованного текста, в него же записывается результат расшифрования
+ */
 void GwCLbCt::Give_OT(uint8_t *block)
 {
   uint8_t blockSR[0x10] = {0};
@@ -66,6 +94,12 @@ void GwCLbCt::Give_OT(uint8_t *block)
     block[k] ^= blockSR[k];
 }
 
+/**
+ * @brief Получить зашифрованный текст из открытого неполного блока
+ * 
+ * @param block Указатель на C-массив байт с блоком открытого текста, в него же записывается результат шифрования
+ * @param length_last_not_full_block длина неполного блока
+ */
 void GwCLbCt::Give_ST(uint8_t *block, const uint8_t length_last_not_full_block)
 {
   uint8_t block_var[0x10] = {0};
@@ -81,6 +115,12 @@ void GwCLbCt::Give_ST(uint8_t *block, const uint8_t length_last_not_full_block)
     block[k] ^= block_var[k + 0x10 - length_last_not_full_block];
 }
 
+/**
+ * @brief  Получить открытый текст из зашифрованного неполного блока
+ * 
+ * @param block Указатель на C-массив байт с блоком зашифрованного текста, в него же записывается результат расшифрования
+ * @param length_last_not_full_block  длина неполного блока
+ */
 void GwCLbCt::Give_OT(uint8_t *block, const uint8_t length_last_not_full_block)
 {
   uint8_t block_var[0x10] = {0};
@@ -94,6 +134,11 @@ void GwCLbCt::Give_OT(uint8_t *block, const uint8_t length_last_not_full_block)
     block[k] ^= block_var[k + 0x10 - length_last_not_full_block];
 }
 
+/**
+ * @brief Установка размера обрезаемого блока шифргаммы
+ * 
+ * @param s_in 
+ */
 void GwCLbCt::push_s(const uint16_t s_in)
 {
   s = s_in;
