@@ -14,6 +14,7 @@ Facade::Facade(size_t length_of_hash)
 
 Facade::~Facade()
 {
+  delete Hash;
 }
 
 void Facade::give_hash(uint8_t *block, uint8_t *result)

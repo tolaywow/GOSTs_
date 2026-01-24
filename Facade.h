@@ -1,4 +1,14 @@
 #pragma once
+/**
+ * @file Facade.h
+ * @author Anatoliy Andreev (tolaywow@gmail.com)
+ * @brief 
+ * @version 0.1
+ * @date 2026-01-24
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include <cstdint>
 #include "Ihash.h"
 
