@@ -1,8 +1,21 @@
 #pragma once
+/**
+ * @file Hash512.h
+ * @author  Anatoliy Andreev (tolaywow@gmail.com)
+ * @brief Реализация хэш 512 бит
+ * @version 1.0
+ * @date 2026-01-24
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 // типы подключены в Ihash
 #include "Ihash.h"
 
-
+/**
+ * @brief Реализация хэш 512 бит
+ * 
+ */
 class Hash512:public Ihash
 {
 public:

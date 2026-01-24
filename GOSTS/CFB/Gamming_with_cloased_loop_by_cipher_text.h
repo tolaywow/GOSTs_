@@ -17,7 +17,10 @@
  */
 #define GwCLbCt Gamming_with_cloased_loop_by_cipher_text
 
-//TODO: изменить класс на шаблон для разных алгоритмов блочного шифрования
+/**
+ * @brief Есть шаблон, этот класс не использовать. Использовать GWCLbCT
+ * 
+ */
 class GwCLbCt : public Grass_hopper
 {
   friend class Test_GwCLbCt;

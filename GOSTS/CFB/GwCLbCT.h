@@ -1,4 +1,15 @@
 #pragma once
+/**
+ * @file GwCLbCT.h
+ * @author Anatoliy Andreev (tolaywow@gmail.com)
+ * @brief Реализация шаблона алгоритма работы блочного шифрования в режиме
+ * гаммирования с обратной связью по шифртексту из ГОСТ 34.13.2015
+ * @version 1.1
+ * @date 2026-01-24
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include <cstdint>
 
 template <class CRYPTO, const size_t n>

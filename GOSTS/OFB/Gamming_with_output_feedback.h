@@ -1,4 +1,14 @@
 #pragma once
+/**
+ * @file Gamming_with_output_feedback.h
+ * @author Anatoliy Andreev (tolaywow@gmail.com)
+ * @brief Шаблон гаммирования с обратной связью по выходу
+ * @version 1.0
+ * @date 2026-01-24
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
 #include <cstdint>
 #include <vector>
 template <class CRYPTO, size_t n>
