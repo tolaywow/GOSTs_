@@ -1,15 +1,15 @@
 #include "Grass_hopper.h"
-#include <iostream>
+#include <stdexcept>
 
 /**
  * @brief Пространство имен содержащее основные подстановки для "Кузнечика"
- * 
+ *
  */
 namespace GH_pish
 {
   /**
    * @brief Подстановка для шифрования
-   * 
+   *
    */
   const uint8_t pi[] =
       {
@@ -88,13 +88,13 @@ namespace GH_pish
 
 /**
  * @brief Construct a new Grass_hopper::Grass_hopper object без ввода ключа
- * 
+ *
  */
 Grass_hopper::Grass_hopper()
 {
   /**
    * @brief Формирование нулевого ключа
-   * 
+   *
    */
   for (uint8_t k = 0; k < sizeof(key); ++k)
   {
@@ -106,7 +106,7 @@ Grass_hopper::Grass_hopper()
 
 /**
  * @brief Destroy the Grass_hopper::Grass_hopper object
- * 
+ *
  */
 Grass_hopper::~Grass_hopper()
 {
@@ -114,12 +114,16 @@ Grass_hopper::~Grass_hopper()
 
 /**
  * @brief Метод введения нового ключа в алгоритм
- * 
- * @param key_new указатель на C массив с новым ключем 
+ *
+ * @param key_new указатель на C массив с новым ключем
  * (предполагается, что память выделена на весь ключ, иначе поведение не определено)
  */
 void Grass_hopper::push_key(const uint8_t *key_new)
 {
+  if (key_new == nullptr)
+  {
+    throw std::invalid_argument("key_new");
+  }
 
   for (uint8_t k = 0; k < 0x20; ++k)
   {
@@ -130,12 +134,17 @@ void Grass_hopper::push_key(const uint8_t *key_new)
 }
 
 /**
- * @brief Метод зашифрования открытого блока 
- * 
+ * @brief Метод зашифрования открытого блока
+ *
  * @param block указатель на C массив с открытым текстом
  */
 void Grass_hopper::Give_ST(uint8_t *block)
 {
+  if (block == nullptr)
+  {
+    throw std::invalid_argument("block");
+  }
+
   for (uint8_t k = 0; k < 0x9; ++k)
   {
     xors(keys[k], block);
@@ -148,11 +157,16 @@ void Grass_hopper::Give_ST(uint8_t *block)
 
 /**
  * @brief Метод расшифрования текста
- * 
+ *
  * @param block казатель на C массив с шифртекстом
  */
 void Grass_hopper::Give_OT(uint8_t *block)
 {
+  if (block == nullptr)
+  {
+    throw std::invalid_argument("block");
+  }
+
   // xors(keys[0x9], block);
 
   for (uint8_t k = 0; k < 0x9; ++k)
@@ -165,9 +179,9 @@ void Grass_hopper::Give_OT(uint8_t *block)
 }
 /**
  * @brief Сложение двух блоков по модулю 2, произ
- * 
- * @param Key 
- * @param block 
+ *
+ * @param Key
+ * @param block
  */
 void Grass_hopper::xors(const uint8_t *Key, uint8_t *block)
 {
@@ -179,7 +193,7 @@ void Grass_hopper::xors(const uint8_t *Key, uint8_t *block)
 
 /**
  * @brief Подстановка из основы алгоритма
- * 
+ *
  * @param block блок 16 байт, в нем же возвращается полученный блок
  */
 void Grass_hopper::S_p(uint8_t *block)
@@ -191,7 +205,7 @@ void Grass_hopper::S_p(uint8_t *block)
 }
 /**
  * @brief Подстановка из основы алгоритма (обратная)
- * 
+ *
  * @param block блок 16 байт, в нем же возвращается полученный блок
  */
 void Grass_hopper::S_l(uint8_t *block)
@@ -204,9 +218,9 @@ void Grass_hopper::S_l(uint8_t *block)
 
 /**
  * @brief Линейное преобразование из блока 16 байт в 1 байт
- * 
+ *
  * @param block блок 16 байт
- * @return uint8_t 
+ * @return uint8_t
  */
 uint8_t Grass_hopper::l(const uint8_t *block)
 {
@@ -223,13 +237,21 @@ uint8_t Grass_hopper::l(const uint8_t *block)
     if (block[i] != 0)
     {
       for (uint8_t j = 0; j < 0x8; ++j)
+      {
         if ((l_mass[i] ^ (1 << j)) < l_mass[i])
+        {
           a0 ^= (block[i] << j);
+        }
+      }
     }
   }
   for (int i = 0x7; i > 0; i--)
+  {
     if ((a0 ^ (0x1 << (i + 0x7))) < a0)
+    {
       a0 ^= (px << (i - 0x1));
+    }
+  }
 
   return a0;
 }
@@ -238,7 +260,7 @@ uint8_t Grass_hopper::l(const uint8_t *block)
  * @brief сдвиг массива из 16 байт на 1 байт и заполнение освободившегося байта
  * с помощью байта сформированного методом линейного преобразования
  * Сдвиг в из конца в начало
- * 
+ *
  * @param block блок 16 байт
  */
 void Grass_hopper::L_p(uint8_t *block)
@@ -259,7 +281,7 @@ void Grass_hopper::L_p(uint8_t *block)
  * @brief сдвиг массива из 16 байт на 1 байт и заполнение освободившегося байта
  * с помощью байта сформированного методом линейного преобразования
  * Сдвиг в из начала в конец
- * 
+ *
  * @param block блок 16 байт
  */
 void Grass_hopper::L_l(uint8_t *block)
@@ -280,24 +302,29 @@ void Grass_hopper::L_l(uint8_t *block)
 
 /**
  * @brief Формирование новых ключей из предыдущих
- * 
+ *
  * @param key1 Левый ключ
  * @param key2 Правый
  * @param numkey номер ключевой пары
  */
 void Grass_hopper::key_new(uint8_t *key1, uint8_t *key2, uint8_t numkey)
 {
+
   for (uint8_t i = 0x1; i < 0x9; ++i)
   {
     uint8_t key_n1[0x10];
 
     for (uint8_t j = 0; j < 0x10; ++j)
+    {
       key_n1[j] = key1[j];
+    }
 
     uint8_t C[0x10];
 
     for (uint8_t j = 0x1; j < 0x10; ++j)
+    {
       C[j] = 0;
+    }
 
     C[0] = 0x8 * (numkey - 0x1) + i;
 
@@ -308,13 +335,15 @@ void Grass_hopper::key_new(uint8_t *key1, uint8_t *key2, uint8_t numkey)
     xors(key2, key1);
 
     for (uint8_t j = 0; j < 0x10; ++j)
+    {
       key2[j] = key_n1[j];
+    }
   }
 }
 
 /**
  * @brief Формирование всего набора ключей
- * 
+ *
  */
 void Grass_hopper::Form_Key()
 {
@@ -333,6 +362,7 @@ void Grass_hopper::Form_Key()
 
       keys[k * 0x2 + 0x1][i] = keys[k * 0x2 - 0x1][i];
     }
+    
     key_new(keys[k * 0x2], keys[k * 0x2 + 0x1], k);
   }
 }

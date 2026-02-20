@@ -1,4 +1,5 @@
 #include "Magma.h"
+#include <stdexcept>
 
 /**
  * @brief Набор подстановок
@@ -76,11 +77,16 @@ Magma::Magma()
 }
 /**
  * @brief метод загрузки ключей в алгоритм
- * 
- * @param key_new C-массив с ключом 
+ *
+ * @param key_new C-массив с ключом
  */
 void Magma::push_key(const uint8_t *key_new)
 {
+	if (key_new == nullptr)
+	{
+		throw std::invalid_argument("key_new");
+	}
+
 	for (uint8_t i = 0; i < 0x4; i++)
 	{
 		K[i] = key_new[i + 0x1c];
@@ -104,16 +110,25 @@ void Magma::push_key(const uint8_t *key_new)
 /**
  * @brief метод получения блока шифртекста из открытого
  * запись производится в полученный блок
- * 
+ *
  * @param block  C-массив с открытым текстом
  */
 void Magma::Give_ST(uint8_t *block)
 {
+	if (block == nullptr)
+	{
+		throw std::invalid_argument("block");
+	}
+
 	for (uint8_t i = 0; i < 0x18; i++)
+	{
 		G_k(block, block + 0x4, i % 0x8);
+	}
 
 	for (uint8_t i = 0; i < 0x7; ++i)
+	{
 		G_k(block, block + 0x4, 0x7 - i);
+	}
 
 	Gs_k(block, block + 0x4);
 }
@@ -121,23 +136,32 @@ void Magma::Give_ST(uint8_t *block)
 /**
  * @brief метод получения блока открытого из шифртекста
  * запись производится в полученный блок
- * 
+ *
  * @param block  C-массив с открытым текстом
  */
 void Magma::Give_OT(uint8_t *block)
 {
+	if (block == nullptr)
+	{
+		throw std::invalid_argument("block");
+	}
+
 	for (uint8_t i = 0; i < 0x8; ++i)
+	{
 		G_k(block, block + 0x4, i);
+	}
 
 	for (uint8_t i = 0; i < 0x17; i++)
+	{
 		G_k(block, block + 0x4, 0x7 - i % 0x8);
+	}
 
 	Gs_k(block, block + 0x4);
 }
 
 /**
  * @brief Перестановка местами и вызов метода g_k
- * 
+ *
  * @param a0 В этот блок будет записан преобразованный блок а1
  * @param a1 В этот блок будет записано значение a0
  * @param num_of_key номер ключа для преобразования
@@ -159,9 +183,9 @@ void Magma::G_k(uint8_t *a0, uint8_t *a1, const uint8_t num_of_key)
 
 /**
  * @brief Последнее преобразование
- * 
+ *
  * @param a0 Преобразуетса и конкатинируется к результату
- * @param a1 складывается по модулю 2 
+ * @param a1 складывается по модулю 2
  */
 void Magma::Gs_k(uint8_t *a0, uint8_t *a1)
 {
@@ -178,7 +202,7 @@ void Magma::Gs_k(uint8_t *a0, uint8_t *a1)
 
 /**
  * @brief метод замены значений на подстановки и циклического сдвига на 11
- * 
+ *
  * @param text Текст
  * @param key ключ
  */
